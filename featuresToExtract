@@ -1,0 +1,13 @@
+vamp:qm-vamp-plugins:qm-keydetector:key
+vamp:qm-vamp-plugins:qm-keydetector:mode
+vamp:qm-vamp-plugins:qm-keydetector:tonic
+vamp:qm-vamp-plugins:qm-segmenter:segmentation
+vamp:qm-vamp-plugins:qm-mfcc:means
+#vamp:qm-vamp-plugins:qm-chromagram:chromameans
+#vamp:qm-vamp-plugins:qm-chromagram:chromagram
+#vamp:qm-vamp-plugins:qm-adaptivespectrogram:output
+#vamp:qm-vamp-plugins:qm-constantq:constantq
+#vamp:qm-vamp-plugins:qm-mfcc:coefficients
+#vamp:qm-vamp-plugins:qm-tonalchange:tcfunction
+#vamp:qm-vamp-plugins:qm-tonalchange:tcstransform
+#vamp:qm-vamp-plugins:qm-keydetector:keystrength

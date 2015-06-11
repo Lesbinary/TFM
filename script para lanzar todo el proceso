@@ -1,0 +1,1 @@
+( bash tfmFeatureExtractor.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/featureExtractionFiles.txt && bash tfmTrainer.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/trainingFiles.txt && bash tfmClassifier.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/classifyFiles.txt  ~/tfm/finalResult && less finalResult && diff finalResult expectedResult.txt ) &> salida
