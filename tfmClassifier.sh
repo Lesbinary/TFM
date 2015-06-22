@@ -75,3 +75,5 @@ for CLASS in `cat $SCRATCHFOLDER/classify/classification.csv`; do
 done
 
 paste $FELISTFILE $SCRATCHFOLDER/classify/classification_names.txt > $OUTPUTLISTFILE
+
+echo "Done :)"

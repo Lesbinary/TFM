@@ -33,7 +33,7 @@ if i > 1 %dont plot first point, its only a point
     end
     
 %    plotting
-    figure(fhandle);   
+    set(0,'CurrentFigure',fhandle)   
     if strcmp(nn.output,'softmax')  %also plot classification error
                 
         p1 = subplot(1,2,1);

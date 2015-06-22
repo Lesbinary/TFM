@@ -1,33 +1,55 @@
 %Leopoldo Pla, MUIARFID 2015, TFM (Roberto Paredes)
+
+
+%Actual result: 20 neurons, 1.25 learning rate, numFactors-7, 300
+%iterations and ths features
+%   -vamp:qm-vamp-plugins:qm-keydetector:mode
+%   -vamp:qm-vamp-plugins:qm-segmenter:segmentation
+%   -vamp:qm-vamp-plugins:qm-mfcc:means
+%or 15 neurons using number of perfect cadences of the tonality
+
+%155 error samples
+
+
+
 %OUTPUT='/home/leopoldo/tfm/scratch/';
 addpath(genpath('DeepLearnToolbox'))
 
 %% Load data and normalize
 training_x = csvread (strcat(OUTPUT,'allfiles.features.csv'));
 training_y = csvread (strcat(OUTPUT,'allfiles.classes.csv'));
-test_x = [];
-test_y = [];
+%test_x = csvread (strcat(OUTPUT,'/classify/allfiles.features.csv'));
+%test_y = csvread (strcat(OUTPUT,'/classify/allfiles.classes.csv'));
+
+% normalize with zscore
+[training_x, mu, sigma] = zscore(training_x);
+%test_x = normalize(test_x, mu, sigma);
+save(strcat(OUTPUT,'machineTFMconfig.mat'),'mu','sigma');
+
 
 % Scale data between 0 and 1
-[~,ncol]=size(training_x);
-for i = 1:ncol
-training_x(:,i) = mat2gray(training_x(:,i));
-end
+[rows,cols]=size(training_x);
+colMax=max(abs(training_x),[],1);
+training_x=training_x./repmat(colMax,rows,1);
+training_x=(training_x+1)/2;
 
-[~,ncol]=size(test_x);
-for i = 1:ncol
-test_x(:,i) = mat2gray(test_x(:,i));
-end
-training_y = double(training_y);
-test_y = double(test_y);
+training_x(isnan(training_x))=0;
 
+cols 
+
+%[rows,cols]=size(test_x);
+%colMax=max(abs(test_x),[],1);
+%test_x=test_x./repmat(colMax,rows,1);
+%test_x=(test_x+1)/2;
+
+%test_x(isnan(test_x))=0;
 
 [N,~]=size(training_x);
 K=1:N;
 D = K(rem(N,K)==0);
 [~,numberFactors] = size(D);
 if numberFactors > 8
-    batch_size=D(numberFactors-5);
+    batch_size=D(numberFactors-7);
 else
     batch_size=N;
 end
@@ -35,8 +57,8 @@ end
 
 %% train DBN and use its weights to initialize a NN
 rand('state',331)
-dbn.sizes = [300 500];
-opts.numepochs =   20;
+dbn.sizes = [20];
+opts.numepochs =   10;
 opts.batchsize = batch_size;
 opts.momentum  =   0;
 opts.alpha     =   1;
@@ -50,15 +72,16 @@ nn = dbnunfoldtonn(dbn, 11);
 %nn.dropoutFraction = 0.5;           %  Dropout fraction 
 % nn.weightPenaltyL2 = 1e-4;          %  L2 weight decay
 nn.activation_function = 'sigm';    %  Sigmoid activation function
-nn.learningRate = 1.0;                %  Sigm require a lower learning rate
+nn.learningRate = 1.25;                %  Sigm require a lower learning rate
 nn.output = 'softmax';              %  use softmax output
-opts.numepochs =  400;               %  Number of full sweeps through data
+opts.numepochs =  200;               %  Number of full sweeps through data
 opts.batchsize = batch_size;               %  Take a mean gradient step over this many samples
 opts.plot = 0;                      %  enable plotting
 
 
 %nn = nntrain(nn, training_x, training_y, opts, test_x, test_y);
 nn = nntrain(nn, training_x, training_y, opts);
-
 save(strcat(OUTPUT,'machineTFM.mat'),'nn');
 
+%[er, bad] = nntest(nn, test_x, test_y);
+%er*size(test_x, 1)

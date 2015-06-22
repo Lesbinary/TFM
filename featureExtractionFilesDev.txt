@@ -1,0 +1,16 @@
+/home/leopoldo/tfm/audio-dev/asdf.mp3
+/home/leopoldo/tfm/audio-dev/asdf2.ogg
+/home/leopoldo/tfm/audio-dev/08.flac
+/home/leopoldo/tfm/audio-dev/06.flac
+/home/leopoldo/tfm/audio-dev/04.flac
+/home/leopoldo/tfm/audio-dev/14.flac
+/home/leopoldo/tfm/audio-dev/11.flac
+/home/leopoldo/tfm/audio-dev/03.flac
+/home/leopoldo/tfm/audio-dev/05.flac
+/home/leopoldo/tfm/audio-dev/07.flac
+/home/leopoldo/tfm/audio-dev/01.flac
+/home/leopoldo/tfm/audio-dev/09.flac
+/home/leopoldo/tfm/audio-dev/12.flac
+/home/leopoldo/tfm/audio-dev/13.flac
+/home/leopoldo/tfm/audio-dev/02.flac
+/home/leopoldo/tfm/audio-dev/10.flac
