@@ -65,6 +65,8 @@ def main(argv):
        else:
          if (secondChord - chord) == 5:
            tonalityVotesPC[secondChord-1]+=1
+  
+  #sys.stderr.write(audiofile + " Tonality window: " + str(tonalityWindow1) + "\n")
   tonality=max(tonalityVotesPC, key=tonalityVotesPC.get)
   tonality+=1
   if all(val==0 for val in tonalityVotesPC.values()) :
@@ -100,42 +102,153 @@ def main(argv):
   #sys.stderr.write(" ; newtonalitypond: " + str(tonalityPond) + "\n")
   
   
-  #Get the feature 1-POS chord
-  unigramChord={k: 0 for k in range(25)}
-  for chord in tonalityWindow1:
-     if chord == 13:
-       continue
-     unigramChord[chord-1]+=1
+  #Traspose the chord window to later use it to get n-gram POS chords
+  trasposedWindow1 = []
+  for value in tonalityWindow1:
+    if value == 13:
+      trasposedWindow1.append(13)
+    else:
+
+      if tonalityPond < 13: 			#If we traspose to major chord
+        if value < 13:	 			#For every major chord
+          if (value - tonalityPond) < 0:	#If we traspose out of bounds, put in top OF MAJOR, not minor, else, put in place
+            trasposedWindow1.append(value-tonalityPond+13)
+          else: 
+            trasposedWindow1.append(value-tonalityPond+1)
+        if value > 13 and value < 26:		#For every minor chord
+          if (value - tonalityPond) < 13:	#If we traspose out of bounds, put in top OF MINOR, not major, else, put in place
+            trasposedWindow1.append(value-tonalityPond+13)
+          else:
+            trasposedWindow1.append(value-tonalityPond+1)
+
+      elif tonalityPond > 13:			#If we traspose to minor chord, we need to put minor chord in major's place
+        if value < 13:				#For every major chord
+          if (value - (tonalityPond-13)) < 0:	#If we traspose out of bounds, put in top OF MINOR, opposed to the previous case
+            trasposedWindow1.append(value-(tonalityPond-13)+26)
+          else:
+            trasposedWindow1.append(value-(tonalityPond-13)+14)
+        if value > 13 and value < 26:		#For every minor chord
+          if (value - (tonalityPond-13)) < 13:
+            trasposedWindow1.append(value-tonalityPond+13)
+          else:
+            trasposedWindow1.append(value-tonalityPond+1)
   
-  #Traspose the unigramChord based on pondered tonality
-  unigramChordT={k: 0 for k in range(25)}
-  tonalityPond-=1
-  if tonalityPond < 12: 		#If we traspose to major chord
-    for i in range(12): 		#For every major chord
-      if (i - tonalityPond) < 0:	#If we traspose out of bounds, put in top OF MAJOR, not minor, else, put in place
-        unigramChordT[i-tonalityPond+12]=unigramChord[i]
-      else: 
-        unigramChordT[i-tonalityPond]=unigramChord[i]
-    for i in range(13,25):		#For every minor chord
-      if (i - tonalityPond) < 13:	#If we traspose out of bounds, put in top OF MINOR, not major, else, put in place
-        unigramChordT[i-tonalityPond+12]=unigramChord[i]
+  #sys.stderr.write(audiofile + " trasposedWindow1: "+str(trasposedWindow1)+"\n")
+    
+  #Get the feature 1-gram POS chord
+  unigramChord={k: 0 for k in range(25)}
+  for chord in trasposedWindow1:
+    if chord == 13:
+      continue
+    unigramChord[chord-1]+=1
+    
+  unigramChord.pop(13, None)
+  #sys.stderr.write(audiofile + " unigramChord: "+str(unigramChord)+"\n")  
+  
+  
+  #Get the features bigram POS chord
+  bigramChord={k: 0 for k in range(13)}
+
+  aux=-1
+  for value in trasposedWindow1:
+    if value == 13:
+      continue
+    if aux == -1:
+      aux = value
+      continue
+    else:
+      #Major cadences
+      if tonalityPond < 13:
+        if value == 1 and aux == 12: #perfect authentic cadence
+          bigramChord[0]+=1
+        elif value == 1 and aux == 2: #perfect plagal cadence
+          bigramChord[1]+=1
+        elif value == 12 and aux == 11: #Half cadence
+          bigramChord[2]+=1
+        elif value == 12 and aux == 15: #Half cadence
+          bigramChord[3]+=1
+        elif value == 12 and aux == 14: #Half cadence
+          bigramChord[4]+=1
+        elif value == 12 and aux == 2: #Half cadence
+          bigramChord[5]+=1
+        elif value == 12 and aux == 1: #Half cadence
+          bigramChord[6]+=1
+        elif value == 14 and aux == 12: #Interrupcted (deceptive) cadence
+          bigramChord[7]+=1
+        elif value == 1 and aux == 18: #plagal cadence
+          bigramChord[8]+=1
+        aux = value
+      #Minor cadences
       else:
-        unigramChordT[i-tonalityPond]=unigramChord[i]
-        
-  elif tonalityPond > 12:		#If we traspose to minor chord, we need to put minor chord in major's place
-    for i in range(12):			#For every major chord
-      if (i - (tonalityPond-13)) < 0:	#If we traspose out of bounds, put in top OF MINOR, opposed to the previous case
-        unigramChordT[i-(tonalityPond-13)+25]=unigramChord[i]
+        if value == 1 and aux == 16: #perfect authentic cadence (minor)
+          bigramChord[9]+=1
+        elif value == 1 and aux == 12: #modal authentic cadence (minor)
+          bigramChord[10]+=1
+        elif value == 1 and aux == 2: #perfect plagal cadence (minor)
+          bigramChord[11]+=1
+        elif value == 1 and aux == 18: #plagal cadence (minor)
+          bigramChord[11]+=1
+        aux = value
+  
+  
+  
+  #sys.stderr.write(audiofile + " bigramChord: "+str(bigramChord.values())+"\n")
+  
+  
+  
+  #Get the features trigram POS chord
+  trigramChord={k: 0 for k in range(10)}
+
+  auxprime=-1
+  auxprime2=-1
+  for value in trasposedWindow1:
+    if value == 13:
+      continue
+    if auxprime == -1:
+      auxprime = value
+      continue
+    elif auxprime2 == -1:
+      auxprime2 = value
+      continue
+    else:
+      #Major cadences
+      if tonalityPond < 14:
+        if value == 2 and auxprime == 1 and auxprime2 == 2:
+          trigramChord[0]+=1
+        elif value == 1 and auxprime == 12 and auxprime2 == 2:
+          trigramChord[1]+=1
+        elif value == 12 and auxprime == 2 and auxprime2 == 12:
+          trigramChord[2]+=1
+        elif value == 2 and auxprime == 15 and auxprime2 == 12:
+          trigramChord[3]+=1
+        elif value == 2 and auxprime == 14 and auxprime2 == 12:
+          trigramChord[4]+=1
+        elif value == 1 and auxprime == 2 and auxprime2 == 12:
+          trigramChord[5]+=1
+        elif value == 12 and auxprime == 2 and auxprime2 == 25:
+          trigramChord[6]+=1
+        auxprime2 = auxprime
+        auxprime = value
+      #Minor cadences
       else:
-        unigramChordT[i-(tonalityPond-13)+13]=unigramChord[i]
-    for i in range(13,25):
-      if (i - (tonalityPond-13)) < 13:
-        unigramChordT[i-tonalityPond+12]=unigramChord[i]
-      else:
-        unigramChordT[i-tonalityPond]=unigramChord[i]
-        
-  #sys.stderr.write(audiofile + "unigramChordT: "+str(unigramChordT)+"\n")  
-  features_csv.writerow(unigramChordT.values())
+        if value == 2 and auxprime == 1 and auxprime2 == 2:
+          trigramChord[7]+=1
+        elif value == 1 and auxprime == 12 and auxprime2 == 2:
+          trigramChord[8]+=1
+        elif value == 1 and auxprime == 12 and auxprime2 == 11:
+          trigramChord[9]+=1
+        auxprime2 = auxprime
+        auxprime = value
+  
+
+  
+  #sys.stderr.write(audiofile + " trigramChord: "+str(trigramChord.values())+"\n")
+  
+  features_csv.writerow(bigramChord.values())
+  features_csv.writerow(trigramChord.values())
+  features_csv.writerow([tonalityPond])
+  features_csv.writerow(unigramChord.values())
+  features_csv.writerow(trasposedWindow1)
   
   #Compute Vamp features after getting tonality
   for file in sorted(os.listdir(featuresfolder)):
