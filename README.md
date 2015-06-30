@@ -16,6 +16,6 @@ In this exact case (which I used for testing), the commands are:
 - Number of threads/cores used or whether this should be specified on the command line: the default threads are 4 (as the Wiki specifies as the maximum) and can be set with the parameter "-numThreads" (see previous example).
 - Expected memory footprint: With my Dataset it used 80MB. I suppose that Matlab will use 100-150MB in MIREX.
 - Expected runtime: With my own dataset, 7 minutes. In MIREX I suppose that 20-40 minutes
-- Approximately how much scratch disk space will the submission need to store any feature/cache files? 2-3GB (depending of the input files)
+- Approximately how much scratch disk space will the submission need to store any feature/cache files?: 100MB I suppose (depending of the input files)
 - Any required environments/architectures (and versions) such as Matlab, Java, Python, Bash, Ruby etc.: Matlab (I tested with 2014a in clean install of Ubuntu 15.04), Java (used for Matlab to work, I don't mind the version), Python (I used 2.7, default in clean install of Ubuntu 15.04), Bash (I don't mind, I used the default Bash in Ubuntu 15.04).
 - Any special notice regarding to running your algorithm: It will output some .log files into the scratch folder, if needed.
