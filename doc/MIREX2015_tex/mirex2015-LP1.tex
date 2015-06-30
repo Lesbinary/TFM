@@ -72,11 +72,11 @@ The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated k
 
 This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.
 
-\subsection{Chord windows and tonality}\label{subsec:chord_windows}
+\subsection{Tonality}\label{subsec:chord_windows}
 
 The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window.
 
-This set of features, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is also used as a feature.
+This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
 
 \subsection{Unigram, bigram and trigrams from harmonic analysis}\label{subsec:uni_bi_tri}
 

@@ -248,7 +248,8 @@ def main(argv):
   features_csv.writerow(trigramChord.values())
   features_csv.writerow([tonalityPond])
   features_csv.writerow(unigramChord.values())
-  features_csv.writerow(trasposedWindow1)
+  #features_csv.writerow(trasposedWindow1)
+  #Deleted this last feature because of possibility of variance in MIREX
   
   #Compute Vamp features after getting tonality
   for file in sorted(os.listdir(featuresfolder)):
@@ -344,6 +345,7 @@ def main(argv):
         if transform != "keystrength1" and transform != "keystrength10":
           #sys.stderr.write(audiofile + " ; " + transform+": "+str(data.values())+"\n")
           features_csv.writerow(data.values()) 
+       
        
 if __name__ == "__main__":
    main(sys.argv[1:])

@@ -64,6 +64,7 @@ for LINE in `cat $FELISTFILE`; do
   cat $SCRATCHFOLDER/class.`basename $AUDIOFILE`.csv >> $SCRATCHFOLDER/allfiles.classes.csv
   cat $SCRATCHFOLDER/allfe.`basename $AUDIOFILE`.csv >> $SCRATCHFOLDER/allfiles.features.csv
 done
-echo "Training the neural network"
-~/matlab/bin/matlab -nodesktop -nosplash -nojvm -r "OUTPUT='$SCRATCHFOLDER';trainDBN;exit"
+echo "Training the model (neural network)"
+matlab -nodesktop -nosplash -nojvm -r "OUTPUT='$SCRATCHFOLDER';trainDBN;exit"
+echo "    Training done"
 

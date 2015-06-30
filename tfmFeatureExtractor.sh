@@ -29,6 +29,7 @@ fi
 
 echo "Extracting features"
 for AUDIOFILE in `cat $FELISTFILE`; do
+  echo "Extracting and processing all audio features for $AUDIOFILE"
   for FEATURE in `cat featuresToExtract`; do
     if [ "${FEATURE:0:1}" != "#" ]; then 
       FEATURENAME=`echo $FEATURE | cut -f 4 -d ':'`
@@ -50,7 +51,7 @@ for AUDIOFILE in `cat $FELISTFILE`; do
     fi
   done
   wait
-  #echo "Processing all audio features for $AUDIOFILE"
   python processFeatures.py --audiofile `basename $AUDIOFILE` --featuresfolder $SCRATCHFOLDER | tr '\n' ',' | sed 's/,$/\n/' > $SCRATCHFOLDER/allfe.`basename $AUDIOFILE`.csv 2>> $SCRATCHFOLDER/processF.log &
 done
 wait
+echo "Feature extraction done"

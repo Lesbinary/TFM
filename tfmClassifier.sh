@@ -41,7 +41,7 @@ for AUDIOFILE in `cat $FELISTFILE`; do
 done
 
 echo "Classifying songs using the neural network"
-~/matlab/bin/matlab -nodesktop -nosplash -nojvm -r "OUTPUT='$SCRATCHFOLDER';classifyDBN;exit"
+matlab -nodesktop -nosplash -nojvm -r "OUTPUT='$SCRATCHFOLDER';classifyDBN;exit"
 for CLASS in `cat $SCRATCHFOLDER/classify/classification.csv`; do
   CLASSNAME=""
   case "$CLASS" in
@@ -76,4 +76,4 @@ done
 
 paste $FELISTFILE $SCRATCHFOLDER/classify/classification_names.txt > $OUTPUTLISTFILE
 
-echo "Done :)"
+echo "All done :)"

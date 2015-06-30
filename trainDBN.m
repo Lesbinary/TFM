@@ -68,14 +68,14 @@ rand('state',331)
 %unfold dbn to nn
 %nn = dbnunfoldtonn(dbn, 11);
 
-nn = nnsetup([cols 15 11]);
+nn = nnsetup([cols 44 11]);
 
 %nn.dropoutFraction = 0.5;           %  Dropout fraction 
 % nn.weightPenaltyL2 = 1e-4;          %  L2 weight decay
 nn.activation_function = 'sigm';    %  Sigmoid activation function
 nn.learningRate = 0.5;                %  Sigm require a lower learning rate
 nn.output = 'softmax';              %  use softmax output
-opts.numepochs =  135;               %  Number of full sweeps through data
+opts.numepochs =  450;               %  Number of full sweeps through data
 opts.batchsize = batch_size;               %  Take a mean gradient step over this many samples
 opts.plot = 0;                      %  enable plotting
 
