@@ -1,0 +1,348 @@
+\documentclass[a4paper,openany,oneside,12pt]{book}
+\usepackage[UKenglish]{babel}
+\usepackage[UKenglish]{isodate}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % Para poner acentos y eñes directamente.
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+
+
+% Defines a `datastore' shape for use in DFDs.  This inherits from a
+% rectangle and only draws two horizontal lines.
+\makeatletter
+\pgfdeclareshape{datastore}{
+  \inheritsavedanchors[from=rectangle]
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{base}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{north east}
+  \inheritanchor[from=rectangle]{east}
+  \inheritanchor[from=rectangle]{south east}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{south west}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{north west}
+  \backgroundpath{
+    %  store lower right in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+ }
+}
+\makeatother
+
+
+
+\newcommand{\textsharp}{$\sharp$}
+
+\begin{document}
+
+\title{Audio Classical Composer Identification in MIREX 2015: Submission based on Structural Analysis of Music}
+\author{
+        Leopoldo Pla Sempere\\
+        {\it leoplsem@posgrado.upv.es}\\
+        Polytechnic University of Valencia\\
+}
+
+\date{\today}
+\maketitle
+
+\newpage
+\mbox{}
+\thispagestyle{empty} % para que no se numere esta pagina
+
+
+
+\chapter*{License}
+Documents are licensed under Creative Commons Attribution - ShareAlike 4.0 International (CC BY-SA).
+
+\url{http://creativecommons.org/licenses/by-sa/4.0/}
+
+
+
+Source code under GNU GENERAL PUBLIC LICENSE (GPL).
+
+\url{http://www.gnu.org/copyleft/gpl.html}
+
+
+
+\begin{figure}
+\centering
+\includegraphics{img/cc.png} 
+
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+\end{figure}
+
+\chapter*{}
+\begin{flushright}
+\textit{Dedicado a \\
+Laura}
+\end{flushright}
+
+
+\chapter*{Abstract}
+\addcontentsline{toc}{section}{Abstract} % si queremos que aparezca en el índice
+\markboth{ABSTRACT}{ABSTRACT} % encabezado
+
+This work is the result of interest in neural networks and classical music, knowledge that I wanted to join after the studies of the IARFID master and professional music degree. I wanted to contribute to a engineering task from the musicological point of view, so, after working on PAN 2015 author profiling task, I thought that I could use similar techniques in MIREX classical composer identification task.
+
+MIREX is the Music Information Retrieval Evaluation eXchange organized by the University of Illinois at Urbana-Champaign (UIUC) in which every year they prepare several Music Information Retrieval tasks held as part of the International Conference on Music Information Retrieval (ISMIR), which this year is celebrated in Malaga. Under this exchange exists the Audio Classification (Train/Test) Tasks, and more specifically the Audio Classical Composer Identification, which is perfect for investigating the use of machine learning and music analysis.
+
+Machine learning is a field of the artificial intelligence which evolves from the study of pattern recognition and include the study of algorithms that can learn and make decisions over data. Specifically, a neural network is a machine learning algorithm that is inspired by the functionality of the biological neural networks.
+
+Musical analysis is the process whereby a music piece is decomposed and understood as we analyze a text. There is no exact method for these analysis and differs from analyst to analyst. The lowest level of this musical analysis is the harmonic and functional analysis, which is POS tagging in texts, and a higher one is the structure of the segmentation.
+
+This investigation includes the idea and the software that implements the preprocessing and the classification of samples using different software technology layers, as Sonic Annotator and Bash scripts.
+
+
+\newpage
+
+
+\tableofcontents % indice de contenidos
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{List of Figures} % para que aparezca en el indice de contenidos
+\listoffigures % indice de figuras
+
+
+
+
+
+\chapter{Introduction}
+\pagenumbering{arabic} % para empezar la numeración con números
+In the last years, Music Information Retrieval fields have been improving step by step and the majority of these fields are still using low level features of the audio signal. In computational linguistics authorship attribution, is usual to use features from the text representation as character measures, lexical measures and syntactic features (POS tagging counts). In fact, one of the features that the winner of PAN 2014 in the authorship task uses is the POS tagging of the text \cite{pan14}
+
+So, in this task I approximate the idea of POS tagging and segmentation as the musical structure analysis of classical audio files. This whole concept could be compared to apply POS tagging to a speech recording.
+
+Then, here we will focus on techniques of musical analysis, composition and machine learning instead of signal processing  because which none of the previous works in the author identification submissions of MIREX used this kind of high level features.
+
+
+\section{State of the Art}
+As this work is focused on MIREX exchange, the state of the art is easily obtainable because all the papers and submissions from previous years are stored and classified in the MIREX Wiki and also lots of materials of the ISMIR proceedings.
+
+For the specific task of Classical Composer Identification in MIREX 2014 the machine learning algorithms used were Convolutional Neural Networks (CNN) and multiclass Support Vector Machines (SVM), also using PCA and a SVM ranker as a dimensional reduction algorithm. Previous years there were used Restricted Boltzmann Machines (RBM), Gaussian Mixture Models (GMM), k-Nearest Neighbours classifier (kNN) and Multi Layer Perceptron (MLP).
+
+From the features point of view, the most used features are timbral features as mel-frequency cepstral coefficients (MFCC), decorrelated filter banks (DFB) and octave-based spectral contrast (OSC), visual features as spectograms, spectral patterns (SP), Delta spectral patterns (DSP) and Short Time Fourier Transform (STFT), and also rhythmic patterns as Logarithmic Fluctuation Patterns (LFP) and Correlation Patterns (CP). After the extraction of these features, sometimes are preprocessed before using them in the machine learning system with some statistical features as mean and variance of the timbral features or with Gabor filters, as usually is done in Biometrics and Computer Vision.
+
+
+
+\section{Neural Networks}
+
+One of the most famous techniques of machine learning nowadays is the neural network topology. In the last years, the use of this type of learning algorithms has increased compared to the Radial Basis Functions or the Support Vector Machines algorithms with the "boom" of the Deep Learning and the Convolutional Networks.
+
+
+\begin{quote}
+\em The word network in the term 'artificial neural network' refers to the inter–connections between the neurons in the different layers of each system. An example system has three layers. The first layer has input neurons which send data via synapses to the second layer of neurons, and then via more synapses to the third layer of output neurons. More complex systems will have more layers of neurons, some having increased layers of input neurons and output neurons. The synapses store parameters called "weights" that manipulate the data in the calculations.
+
+An ANN is typically defined by three types of parameters:
+\begin{itemize}
+\item The interconnection pattern between the different layers of neurons
+\item The learning process for updating the weights of the interconnections
+\item The activation function that converts a neuron's weighted input to its output activation.
+\cite{wiki:ann}
+\end{itemize}
+\end{quote}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{img/Colored_neural_network.png} 
+\caption{General structure of a multilayer perceptron} \label{fig:neuralnet}
+\end{figure}
+
+An artificial neural network is a class of classification program that is trained to solve problems by learning the features of the problem through a set of already classified data, or labeled training set. This specific kind of software is designed based on the study of how  biologic brain works and it has lots of applications in computer vision, speech recognition, natural language processing, bioinformatics and many other science sectors.
+
+Also, this kind of topology is easily paralelizable and it has been implemented in so many frameworks that use several CPU and many GPU cores (CUDA or OpenCL, for example).
+
+The origin of the artificial neural networks can be stablished at the first models defined with mathematical notation by McCullock and Pitt in 1943, but the first successful results are obtained in 1959 when the perceptron is created by Rosenblat, which later in 1975 is improved by Paul Werbos adding the backpropagation algorithm.
+
+Nowadays, the most used artificial neural networks are the Restricted Boltzmann Machines, the Convolutional Neural Networks and the Deep Belief Networks.
+
+\subsection{Unsupervised Learning}
+As Bishop states in his book "Pattern Recognition and Machine Learning":
+\begin{quote}
+\em In other pattern recognition problems, the training data consists of a set of input vectors x without any corresponding target values. The goal in such unsupervised learning problems may be to discover groups of similar examples within the data, where it is called clustering, or to determine the distribution of data within the input space, known as density estimation, or to project the data from a high-dimensional space down to two or three dimensions for the purpose of visualization.
+\end{quote}
+
+In short, unsupervised learning is focused on finding hidden structure in unlabeled data, which is used by Deep Belief Networks to pretrain a Artificial Neural Network. \cite{Bishop}
+
+\subsection{Deep Belief Network}
+
+\begin{quote}
+\em Deep belief nets are probabilistic generative models that are composed of multiple layers of stochastic, latent variables. The latent variables typically have binary values and are often called hidden units or feature detectors. The top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
+
+The two most significant properties of deep belief nets are:
+
+\begin{itemize}
+\item There is an efficient, layer-by-layer procedure for learning the top-down, generative weights that determine how the variables in one layer depend on the variables in the layer above. 
+
+\item After learning, the values of the latent variables in every layer can be inferred by a single, bottom-up pass that starts with an observed data vector in the bottom layer and uses the generative weights in the reverse direction.
+\end{itemize}
+
+Deep belief nets are learned one layer at a time by treating the values of the latent variables in one layer, when they are being inferred from data, as the data for training the next layer. This efficient, greedy learning can be followed by, or combined with, other learning procedures that fine-tune all of the weights to improve the generative or discriminative performance of the whole network.
+
+Discriminative fine-tuning can be performed by adding a final layer of variables that represent the desired outputs and backpropagating error derivatives. When networks with many hidden layers are applied to highly-structured input data, such as images, backpropagation works much better if the feature detectors in the hidden layers are initialized by learning a deep belief net that models the structure in the input data (Hinton \& Salakhutdinov, 2006). \cite{Hinton:2009}
+\end{quote}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{img/dbn_model.png} 
+\caption{Deep Belief Network training example} \label{fig:dbn}
+\end{figure}
+
+
+
+\chapter{Used techologies}\label{used_techs}
+
+
+
+\chapter{Methodology}\label{methodology}
+
+\section{Feature extraction}\label{sec:feature_extraction}
+
+Some of the next explained features are implemented by myself and other ones are implemented through the Queen Mary plugins of the Centre for Digital Music (University of London), tested with Sonic Visualizer \cite{SonicVisualiser} and applied to the dataset using Sonic Annotator \cite{chris2010a}.
+
+\subsection{Key Mode}\label{subsec:keymode}
+
+The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature.
+
+\subsection{Segmentation}\label{subsec:segmentation}
+
+This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.
+
+\subsection{Tonality}\label{subsec:chord_windows}
+
+The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window.
+
+This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
+
+\subsection{Unigram, bigram and trigrams from harmonic analysis}\label{subsec:uni_bi_tri}
+
+From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). As a parallelism of the POS tagging in text, is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
+
+\subsection{MFCC means}\label{subsec:mfcc_means}
+At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this low level feature with the previous ones.
+
+
+\section{Classification}\label{sec:classification}
+
+In the proposed systems, I used a Neural Network (NN) in one system and a Deep Belief Network (DBN) in another one to pre-train a Neural Network as a classifiers implemented by Rasmus Berg \cite{IMM2012-06284}. The features are normalized with z-score and after that, normalized between 0 and 1 before using the neural network. The networks are configured with 44 neurons at the hidden layer, 300 epochs, a batch size based on a divisor of the number of dataset samples, sigmoid activation function and softmax function at the output layer. I tested the system with a homemade database of FLAC files, extracted from my own CD's of the authors of the task.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[
+  font=\sffamily,
+  every matrix/.style={ampersand replacement=\&,column sep=2cm,row sep=2cm},
+  source/.style={draw,thick,rounded corners,inner sep=.3cm},
+  process/.style={draw,thick,circle},
+  sink/.style={source},
+  datastore/.style={draw,very thick,shape=datastore,inner sep=.3cm},
+  dots/.style={gray,scale=2},
+  to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
+  every node/.style={align=center}]
+
+  % Position the nodes using a matrix layout
+    \node[source] (dataset) {Dataset};
+      \node[process, below left = of dataset] (bps) {Bash\\and\\Python\\scripts};
+      \node[datastore, below = of bps] (Tfeatures) {training features\\into\\scratch folder};
+      \node[process, below = of Tfeatures] (NN) {Matlab\\NN};
+      \node[datastore, below = of NN] (trained_nn) {Trained NN};
+      \node[process, right = of NN] (bcs) {Bash\\class.\\script};
+      \node[datastore, below = of bcs] (Cfeatures) {classification\\features};
+      \node[process, below = of Cfeatures] (mat_class) {Matlab\\Class.};
+      \node[sink, below = of mat_class] (classification) {Classes of files};
+
+
+  % Draw the arrows between the nodes and label them.
+  \draw[to] (dataset) -- node[midway,left] {load training files} (bps);
+  \draw[to] (bps) -- node[midway,right] {using\\Sonic\\Annotator} (Tfeatures);
+  \draw[to] (Tfeatures) -- node[midway,right] {used to\\train} (NN);
+  \draw[to] (NN) -- node[midway,left] {once converge} (trained_nn);
+  \draw[to] (dataset) -- node[midway,right] {load test files} (bcs);
+  \draw[to] (trained_nn) -- node[midway,left] {is loaded in} (mat_class);
+  \draw[to] (bcs) -- node[midway,right] {obtains} (Cfeatures);
+  \draw[to] (Cfeatures) -- node[midway,right] {are passed to} (mat_class);
+  \draw[to] (mat_class) -- node[midway,right] {obtains} (classification);
+\end{tikzpicture}
+\caption{Workflow of the proposed system}
+\end{center}
+\end{figure}
+
+
+\chapter{Experiments}\label{experiments}
+
+\section{MIREX 2015}
+
+\chapter{Conclusions}\label{conclusions}
+
+
+
+\section{Future work lines}
+
+
+
+
+
+
+
+\nocite{*}
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliografía}
+\bibliographystyle{ieeetr}
+\bibliography{bibliography}
+
+
+
+
+
+
+\appendix
+\chapter{Donwload links}\label{links}
+\begin{itemize}
+
+\item Download this document: \url{https://github.com/Lesbinary/TFM/raw/master/doc/report.pdf}
+
+\item Source code download (documentation and implementation): \url{https://github.com/Lesbinary/tfm/archive/master.zip}
+
+\item Github Repository: \url{https://github.com/Lesbinary/tfm}
+
+\item GPLv3 License: \url{https://github.com/Lesbinary/tfm/blob/master/LICENSE}
+
+\end{itemize}
+
+
+\chapter{Environment configuration}\label{configuration}
+
+This project has been developed under clean install of Ubuntu 15.04 but it also works on Ubuntu 14.04 LTS. The only needed software that is not installed by default is MATLAB and I used version 2014a.
+
+First of all, you need to download my repository (see appendix \ref{links}) into the folder you want. After that, you need to copy the "vamp" folder of the root of the repository into your home folder (\$HOME/vamp) or into /usr/local/lib/vamp because Sonic Annotator searches for plugins in that paths.
+
+Then you are ready to use the script based on the standard of MIREX submissions(\url{http://www.music-ir.org/mirex/wiki/2015:Audio_Classification_%28Train/Test%29_Tasks#Example_submission_calling_formats}), for example:
+   \lstset{language=Bash,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\ttfamily,
+           stringstyle=\ttfamily,
+           commentstyle=\ttfamily,
+          breaklines=true
+          }
+\begin{lstlisting}
+	tfmFeatureExtractor.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/trunk/featureExtractionFiles.txt
+	tfmTrainer.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/trunk/trainingFiles.txt
+	tfmClassifier.sh -numThreads 8 ~/tfm/scratch/ ~/tfm/trunk/classifyFiles.txt  ~/tfm/trunk/finalResult
+\end{lstlisting}
+	
+And that's it. Also keep in mind that you will need a system with at least 80MB. It's recommended 100-150MB for using a corpus like the one in MIREX. Also keep in mind that there is an option of multithreading which can improve the speed of the run. The default threads value is 4 and can be set with the parameter "-numThreads" (see previous example).
+
+\end{document}
+\grid

@@ -3,7 +3,7 @@
 
 Based on musicological fundaments of classical authors, I used their compositive features to train a neural network using author profiling techniques in a real task of the MIREX 2015 contest.
 
-- Command line calling format for all executables including examples: based on the second example of the Wiki (http://www.music-ir.org/mirex/wiki/2015:Audio_Classification_%28Train/Test%29_Tasks):
+- Command line calling format for all executables including examples: based on the second example of the Wiki (http://www.music-ir.org/mirex/wiki/2015:Audio_Classification_%28Train/Test%29_Tasks#Example_submission_calling_formats):
 	extractFeatures.sh /path/to/scratch/folder /path/to/featureExtractionListFile.txt
 	Train.sh /path/to/scratch/folder /path/to/trainListFile.txt 
 	Classify.sh /path/to/scratch/folder /path/to/testListFile.txt /path/to/outputListFile.txt
