@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>TFG - Asistente de composición de música dodecafónica</title>
+
+		<meta name="description" content="Trabajo de Fin de Grado - Grado en Ingeniería Informática">
+		<meta name="author" content="Leopoldo Pla Sempere">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Trabajo de Fin de Grado</h1>
+					<h3>Asistente de composición de música dodecafónica</h3>
+					<p>
+						<small><p>Autor: <a href="mailto:lps34@alu.ua.es">Leopoldo Pla Sempere</a> / Tutor: <a href="mailto:cperez@dlsi.ua.es">Carlos Pérez Sancho</a></p>
+						<p><a href="http://cvnet.cpd.ua.es/webcvnet/planestudio/planestudiond.aspx?plan=C203">Grado en Ingeniería Informática 2010-2014</a> / <a href="http://www.ua.es">Universidad de Alicante</a></p></small>
+					</p>
+					<aside class="notes">Seguiré la estructura de la memoria: Presentación, Estructura; Introducción, Motivación, Objetivos; Descripción; Resultados; Conclusiones, líneas</aside>
+				</section>
+
+				<section>
+					<h2>Estructura de la <br>presentación</h2>
+					<ul class="fragment roll-in">
+						<li>Introducción</li>
+						<li>Motivación</li>
+						<li>Objetivos</li>
+						<li>Descripción</li>
+						<li>Resultados</li>
+						<li>Conclusiones</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Introducción</h2>
+						<div align="left" class="fragment">El asistente de composición de música dodecafónica es una herramienta que</div>
+						<ul>
+							<li class="fragment roll-in">ayuda al compositor a obtener ideas, fragmentos, frases o voces completas para la composición de una obra dodecafónica.</li>
+							<li class="fragment roll-in">se basa en restricciones delimitadas por el compositor.</li>
+						</ul>
+						<aside class="notes">
+							La motivación de realizar este proyecto es unir los conocimientos del grado medio y el GII e indagar en la composición por ordenador y la relación de la música dodecafónica con la álgebra lineal.
+						
+							El objetivo principal es mejorar el proceso de composición de música dodecafónica con una herramienta inédita así como retroalimentar al programa proponiendo más restricciones o formas compositivas.
+						</aside>
+					</section>
+					<section>
+						<h2>Música dodecafónica</h2>
+						<p>
+							<ul>
+								<li class="fragment">Iniciada por Arnold Schoenberg entre 1921 y 1923</li>
+								<li class="fragment">Tipo de serialismo (no predominan unas notas sobre otras)</li>
+								<li class="fragment">Se basa una serie con las doce notas de la escala (con cierto orden)</li>
+								<li class="fragment">Se obtiene una matriz de series derivadas de la serie original</li>
+							</ul>
+						</p>
+	
+						<aside class="notes">
+							Schoenberg derivó del atonalismo al dodecafonismo porque no podía componer obras extensas con coherencia sin un texto en el que apoyarse.
+						</aside>
+					</section>
+					
+					<section>
+						<h3>Matriz dodecafónica</h3>
+						<img src="img/12_tone_matrix.jpg" alt="Matrix">
+	
+						<aside class="notes">
+							Explicación de cada una de las series obtenidas
+						</aside>
+					</section>
+					<section>
+						<h3>Ejemplo de obra dodecafónica</h3>
+						<img src="img/exampleTwelveToneScore.png" alt="ScoreExample">
+					</section>
+				</section>
+				
+				<section>
+					<h2>Diagrama del flujo de trabajo</h2>
+					<img src="img/software_diagram.png" alt="SoftwareDiagram">
+				</section>
+				<section data-background="#4d7e65" data-background-transition="slide">
+					<h2>Demostración del funcionamiento</h2>
+					
+					<iframe width="853" height="480" src="http://www.youtube.com/embed/UbdCKUhWGyc" frameborder="0" allowfullscreen></iframe>
+				</section>
+				<section>
+					<section>
+						<h2>Resultados</h2>
+					</section>
+					
+					<section>
+						<h3>Ejemplo de obra formal</h3>
+						<iframe width="640" height="40" src="http://www.youtube.com/embed/nmMA77gy2hg" frameborder="0" allowfullscreen></iframe>
+						
+						<a href="http://imslp.org/wiki/String_Trio,_Op.20_%28Webern,_Anton%29"><img src="img/webern.png" width="60%" height="60%" alt="Webern"></a>
+						
+					</section>
+					
+					<section>
+						<h3>Obra compuesta utilizando el asistente</h3>
+						<iframe width="440" height="240" src="http://www.youtube.com/embed/GdllUSBdCOs" frameborder="0" allowfullscreen></iframe>
+						
+						<img src="img/composicion.jpg" alt="Composicion">
+					</section>
+				</section>
+				
+				<section>
+					<section data-background="#F4A460" data-background-transition="slide">
+						<h3>Conclusiones</h3>
+						<ul>
+							<li>Se obtienen obras muy similares a una compuesta íntegramente por un compositor</li>
+							<li>Los objetivos se cumplen, ya que los fragmentos musicales obtenidos son útiles</li>
+							<li>El desarrollo se ha llevado de forma incremental</li>
+						</ul>
+	
+						<aside class="notes">
+							Modelo incremental, especificación del proyecto y se ha ido modificando el conjunto de características según avanzamos en hitos.
+						</aside>
+					</section>
+					<section data-background="#F4A460" data-background-transition="slide">
+						<h3>Conclusiones</h3>
+						<ul>
+							<li>Líneas futuras de desarrollo</li>
+							<ul>
+									<li class="fragment">Programación de formas barrocas y clásicas (contrapuntos por ampliación, por reducción, cánones...)</li>
+									<li class="fragment">Desarrollo de las series entre voces <img src="img/Schoenberg_-_Wind_Quintet_opening.png" alt="SchoenbergQuintet"></li>
+									<li class="fragment">Mejorar la compatibilidad con QT5</li>
+							</ul>
+						</ul>
+	
+						<aside class="notes">
+							Modelo incremental, especificación del proyecto y se ha ido modificando el conjunto de características según avanzamos en hitos.
+						</aside>
+					</section>
+				</section>
+				
+				<section>
+					<h3>Repositorio para código, memoria y presentación</h3>
+					<p><a href="https://github.com/Lesbinary/tfg/">github.com/Lesbinary/tfg/</a></p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
