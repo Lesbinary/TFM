@@ -100,9 +100,9 @@ MIREX is the Music Information Retrieval Evaluation eXchange organized by the Un
 
 Machine learning is a field of the artificial intelligence which evolves from the study of pattern recognition and include the study of algorithms that can learn and make decisions over data. Specifically, a neural network is a machine learning algorithm that is inspired by the functionality of the biological neural networks.
 
-Musical analysis is the process whereby a music piece is decomposed and understood as we analyze a text. There is no exact method for these analysis and differs from analyst to analyst. The lowest level of this musical analysis is the harmonic and functional analysis, which is POS tagging in texts, and a higher one is the structure of the segmentation.
+Musical analysis is the process whereby a music piece is decomposed and understood as we analyze a text. There is no exact method for these analysis and differs from analyst to analyst. The lowest level of this musical analysis is the harmonic and functional analysis and a higher one is the structure of the segmentation.
 
-This investigation includes the idea and the software that implements the preprocessing and the classification of samples using different software technology layers, as Sonic Annotator and Bash scripts.
+This investigation includes the development of the idea and the software that implements the preprocessing and the classification of samples using different software technology layers, as Sonic Annotator, MATLAB and Bash scripts.
 
 
 \newpage
@@ -118,7 +118,7 @@ This investigation includes the idea and the software that implements the prepro
 
 
 
-\chapter{Introduction}
+\chapter{Introduction} % Puede que la tenga que reescribir para no publicar esta idea de forma explícita
 \pagenumbering{arabic} % para empezar la numeración con números
 In the last years, Music Information Retrieval fields have been improving step by step and the majority of these fields are still using low level features of the audio signal. In computational linguistics authorship attribution, is usual to use features from the text representation as character measures, lexical measures and syntactic features (POS tagging counts). In fact, one of the features that the winner of PAN 2014 in the authorship task uses is the POS tagging of the text \cite{pan14}
 
@@ -126,6 +126,44 @@ So, in this task I approximate the idea of POS tagging and segmentation as the m
 
 Then, here we will focus on techniques of musical analysis, composition and machine learning instead of signal processing  because which none of the previous works in the author identification submissions of MIREX used this kind of high level features.
 
+\section{MIREX}
+The Music Information Retrieval Evaluation eXchange (MIREX) edition of 2015 is organized by The International Music Information Retrieval Systems Evaluation Laboratory (IMIRSEL) at the Graduate School of Library and Information Science (GSLIS), University of Illinois at Urbana-Champaign (UIUC). It's hold as part of the 16th International Conference on Music Information Retrieval, ISMIR 2015, which will be held in Malaga, Spain, October 26th-30th, 2015.
+
+This exchange has several kind of tasks related to Music Information Retrieval:
+
+\begin{itemize}
+    \item Grand Challenge on User Experience
+    \item Audio Classification (Train/Test) Tasks, incorporating:
+    \begin{itemize}
+        \item Audio US Pop Genre Classification
+        \item Audio Latin Genre Classification
+        \item Audio Music Mood Classification
+        \item Audio Classical Composer Identification
+        \item Audio K-POP Mood Classification
+        \item Audio K-POP Genre Classification 
+    \end{itemize}
+    \item Audio Cover Song Identification
+    \item Audio Tag Classification
+    \item Audio Music Similarity and Retrieval
+    \item Symbolic Melodic Similarity
+    \item Audio Onset Detection
+    \item Audio Key Detection
+    \item Real-time Audio to Score Alignment (a.k.a Score Following)
+    \item Query by Singing/Humming
+    \item Audio Melody Extraction
+    \item Multiple Fundamental Frequency Estimation \& Tracking
+    \item Audio Chord Estimation
+    \item Query by Tapping
+    \item Audio Beat Tracking
+    \item Structural Segmentation
+    \item Audio Tempo Estimation
+    \item Discovery of Repeated Themes \& Sections
+    \item Audio Downbeat Estimation
+    \item Audio Fingerprinting
+    \item Singing Voice Separation 
+\end{itemize}
+
+This work is oriented to the Audio Classification (Train/Test) Task of Audio Classical Composer Identification.
 
 \section{State of the Art}
 As this work is focused on MIREX exchange, the state of the art is easily obtainable because all the papers and submissions from previous years are stored and classified in the MIREX Wiki and also lots of materials of the ISMIR proceedings.
@@ -138,8 +176,9 @@ From the features point of view, the most used features are timbral features as 
 
 \section{Neural Networks}
 
-One of the most famous techniques of machine learning nowadays is the neural network topology. In the last years, the use of this type of learning algorithms has increased compared to the Radial Basis Functions or the Support Vector Machines algorithms with the "boom" of the Deep Learning and the Convolutional Networks.
+One of the most famous techniques of machine learning nowadays is the neural network topology. In the last years, the use of this type of learning algorithms has increased compared to the Radial Basis Functions or the Support Vector Machines algorithms, caused by the "boom" of the Deep Learning and the Convolutional Networks.
 
+An artificial neural network is a class of classification program that is trained to solve problems by learning the features of the problem through a set of already classified data, or labeled training set. This specific kind of software is designed based on the study of how  biologic brain works and it has lots of applications in computer vision, speech recognition, natural language processing, bioinformatics and many other science sectors.
 
 \begin{quote}
 \em The word network in the term 'artificial neural network' refers to the inter–connections between the neurons in the different layers of each system. An example system has three layers. The first layer has input neurons which send data via synapses to the second layer of neurons, and then via more synapses to the third layer of output neurons. More complex systems will have more layers of neurons, some having increased layers of input neurons and output neurons. The synapses store parameters called "weights" that manipulate the data in the calculations.
@@ -161,8 +200,6 @@ An ANN is typically defined by three types of parameters:
 \caption{General structure of a multilayer perceptron} \label{fig:neuralnet}
 \end{figure}
 
-An artificial neural network is a class of classification program that is trained to solve problems by learning the features of the problem through a set of already classified data, or labeled training set. This specific kind of software is designed based on the study of how  biologic brain works and it has lots of applications in computer vision, speech recognition, natural language processing, bioinformatics and many other science sectors.
-
 Also, this kind of topology is easily paralelizable and it has been implemented in so many frameworks that use several CPU and many GPU cores (CUDA or OpenCL, for example).
 
 The origin of the artificial neural networks can be stablished at the first models defined with mathematical notation by McCullock and Pitt in 1943, but the first successful results are obtained in 1959 when the perceptron is created by Rosenblat, which later in 1975 is improved by Paul Werbos adding the backpropagation algorithm.
@@ -179,21 +216,21 @@ In short, unsupervised learning is focused on finding hidden structure in unlabe
 
 \subsection{Deep Belief Network}
 
+The Deep Belief Network is a subtype of Artificial Neural Networks inside the Deep Learning algorithms which is based in a set of hidden units layers with unsupervised learning which try to reconstruct the data layer by layer and a final set of layers that are treated as a Multi Layer Perceptron and trained with labeled data using backpropagation.
 \begin{quote}
-\em Deep belief nets are probabilistic generative models that are composed of multiple layers of stochastic, latent variables. The latent variables typically have binary values and are often called hidden units or feature detectors. The top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
+\em The top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
 
 The two most significant properties of deep belief nets are:
 
 \begin{itemize}
 \item There is an efficient, layer-by-layer procedure for learning the top-down, generative weights that determine how the variables in one layer depend on the variables in the layer above. 
 
-\item After learning, the values of the latent variables in every layer can be inferred by a single, bottom-up pass that starts with an observed data vector in the bottom layer and uses the generative weights in the reverse direction.
+\item After learning, the values of the latent variables in every layer can be inferred by a single, bottom-up pass that starts with an observed data vector in the bottom layer and uses the generative weights in the reverse direction.\cite{Hinton:2009}
 \end{itemize}
-
-Deep belief nets are learned one layer at a time by treating the values of the latent variables in one layer, when they are being inferred from data, as the data for training the next layer. This efficient, greedy learning can be followed by, or combined with, other learning procedures that fine-tune all of the weights to improve the generative or discriminative performance of the whole network.
-
-Discriminative fine-tuning can be performed by adding a final layer of variables that represent the desired outputs and backpropagating error derivatives. When networks with many hidden layers are applied to highly-structured input data, such as images, backpropagation works much better if the feature detectors in the hidden layers are initialized by learning a deep belief net that models the structure in the input data (Hinton \& Salakhutdinov, 2006). \cite{Hinton:2009}
 \end{quote}
+
+Since the final result is a MLP, the main difference of DBN with a simple MLP is that this MLP is initialized with the reconstructed data of the DBN which usually obtains better results.
+
 
 \begin{figure}
 \centering
@@ -203,11 +240,7 @@ Discriminative fine-tuning can be performed by adding a final layer of variables
 
 
 
-\chapter{Used techologies}\label{used_techs}
-
-
-
-\chapter{Methodology}\label{methodology}
+\chapter{Implementation}\label{used_techs}
 
 \section{Feature extraction}\label{sec:feature_extraction}
 
@@ -227,7 +260,7 @@ The main work has been done in these following high level features based on the 
 
 This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
 
-\subsection{Unigram, bigram and trigrams from harmonic analysis}\label{subsec:uni_bi_tri}
+\subsection{Harmonic analysis}\label{subsec:uni_bi_tri}
 
 From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). As a parallelism of the POS tagging in text, is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
 
@@ -281,11 +314,99 @@ In the proposed systems, I used a Neural Network (NN) in one system and a Deep B
 
 
 \chapter{Experiments}\label{experiments}
+For the experiments, I used a database created by myself. The reason for this decision is that music database are not easy to distribute because of copyright issues.
 
-\section{MIREX 2015}
+The database I created is structured exactly the same way that the MIREX task specifies:
+
+\begin{quote}
+\begin{itemize}
+\item 2772 30-second 22.05 kHz mono wav clips
+\item 11 "classical" composers (252 clips per composer), including:
+	\begin{itemize}
+	\item Bach
+	\item Beethoven
+	\item Brahms
+	\item Chopin
+	\item Dvorak
+	\item Handel
+	\item Haydn
+	\item Mendelssohn
+	\item Mozart
+	\item Schubert
+	\item Vivaldi 
+	\end{itemize}
+\end{itemize}
+\end{quote}
+
+The disks I used are (respectively to each composer):
+\begin{itemize}
+\item 2772 30-second 22.05 kHz mono wav clips
+\item 11 "classical" composers (252 clips per composer), including:
+	\begin{itemize}
+	\item Bach - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
+	\item The Very Best of Beethoven
+	\item The Best of Brahms
+	\item Chopin - Complete Edition (Deutsche Grammophon)
+	\item The Very Best of Dvorak
+	\item Handel - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
+	\item Haydn - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
+	\item Mendelssohn - The complete symphonies
+	\item Mozart - Complete Works 
+	\item Franz Schubert - Masterworks
+	\item The Very Best of Vivaldi 
+	\end{itemize}
+\end{itemize}
+
+
+After downloading (most of them in MP3) and dumping the audios into WAV files using Asunder app, I created a "quick" bash command to convert all .mp3 files into WAV:
+\lstset{language=Bash,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\ttfamily,
+           stringstyle=\ttfamily,
+           commentstyle=\ttfamily,
+          breaklines=true
+          }
+\begin{lstlisting}
+find * -type f -name "*.mp3"  -exec avconv -i '{}' '{}.wav'
+\end{lstlisting}
+
+And also another one to cut all files into 30 seconds fragments and classified in folders by composer:
+\lstset{language=Bash,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\ttfamily,
+           stringstyle=\ttfamily,
+           commentstyle=\ttfamily,
+          breaklines=true
+          }
+\begin{lstlisting}
+for FOLDER in `ls`; do cd $FOLDER; rename 's/^(.{30}).*(\..*)$/$1$2/' * && find | rename 's/[\ \-(),;]//g' && COUNTER=1; for FILE in `ls`; do LENGTH=`nohup sox $FILE -n stat | grep "Length (seconds):" | sed 's/\ //g' | cut -f 2 -d ':' | cut -f 1 -d '.'`; LENGTH=$(( LENGTH - 30 )); LENGTH=${LENGTH/#-/}; for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do STARTVALUE=`echo $RANDOM % $LENGTH + 1 | bc`; COMMAND="sox "$FILE" "${COUNTER}_$FILE" trim $STARTVALUE 30"; COUNTER=$((COUNTER+1)); echo $COMMAND; eval $COMMAND; done ; rm $FILE; done; cd ..; done
+\end{lstlisting}
+
+Also, to test the workflow of the MIREX task, I created the list of files for feature extraction, training and classification with another simple Bash script:
+
+\lstset{language=Bash,
+           basicstyle=\ttfamily\scriptsize,
+           keywordstyle=\ttfamily,
+           stringstyle=\ttfamily,
+           commentstyle=\ttfamily,
+          breaklines=true
+          }
+\begin{lstlisting}
+find /home/leopoldo/tfm/audio/ -type f > featureExtractionFiles.txt
+cat featureExtractionFiles.txt | cut -f 6 -d '/' > tmp
+paste featureExtractionFiles.txt tmp > trainingFiles.txt
+find /home/leopoldo/tfm/audio-testing/ -type f > classifyFiles.txt
+cat classifyFiles.txt | cut -f 6 -d '/' > tmp
+paste classifyFiles.txt tmp > expectedResult.txt
+rm tmp
+\end{lstlisting}
+
+
+This created an amount of 2420 files (6.4GB), but due to the length gap between authors, I decided to delete some audio fragment from some composers and created a final corpus of 1100 files (2.100 files per author).
+
+
 
 \chapter{Conclusions}\label{conclusions}
-
 
 
 \section{Future work lines}
@@ -298,7 +419,7 @@ In the proposed systems, I used a Neural Network (NN) in one system and a Deep B
 
 \nocite{*}
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Bibliografía}
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{ieeetr}
 \bibliography{bibliography}
 
@@ -328,7 +449,7 @@ This project has been developed under clean install of Ubuntu 15.04 but it also 
 
 First of all, you need to download my repository (see appendix \ref{links}) into the folder you want. After that, you need to copy the "vamp" folder of the root of the repository into your home folder (\$HOME/vamp) or into /usr/local/lib/vamp because Sonic Annotator searches for plugins in that paths.
 
-Then you are ready to use the script based on the standard of MIREX submissions(\url{http://www.music-ir.org/mirex/wiki/2015:Audio_Classification_%28Train/Test%29_Tasks#Example_submission_calling_formats}), for example:
+Then you are ready to use the script based on the standard of MIREX submissions (\url{http://www.music-ir.org/mirex/wiki/2015:Audio_Classification_%28Train/Test%29_Tasks#Example_submission_calling_formats}), for example:
    \lstset{language=Bash,
            basicstyle=\ttfamily\scriptsize,
            keywordstyle=\ttfamily,

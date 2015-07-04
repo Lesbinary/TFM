@@ -78,9 +78,9 @@ The main work has been done in these following high level features based on the 
 
 This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
 
-\subsection{Unigram, bigram and trigrams from harmonic analysis}\label{subsec:uni_bi_tri}
+\subsection{Harmonic analysis}\label{subsec:uni_bi_tri}
 
-From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). As a parallelism of the POS tagging in text, is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
+From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). Is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
 
 \subsection{MFCC means}\label{subsec:mfcc_means}
 At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this low level feature with the previous ones.
