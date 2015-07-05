@@ -150,9 +150,17 @@ def main(argv):
   bigramChord={k: 0 for k in range(13)}
 
   aux=-1
+  countErrors=0
   for value in trasposedWindow1:
     if value == 13:
+      if aux != -1:
+        countErrors += 1
+        if countErrors == 3:
+          aux=-1
+          countErrors=0
       continue
+    else:
+      countErrors=0
     if aux == -1:
       aux = value
       continue
@@ -201,9 +209,25 @@ def main(argv):
 
   auxprime=-1
   auxprime2=-1
+  countErrors1=0
+  countErrors2=0
   for value in trasposedWindow1:
     if value == 13:
+      if auxprime != -1 and auxprime2 == -1:
+        countErrors1 += 1
+        if countErrors1 == 3:
+          auxprime=-1
+          countErrors1=0
+      elif auxprime != -1 and auxprime2 != -1:
+        countErrors2 += 1
+        if countErrors2 == 3:
+          auxprime=-1
+          auxprime2=-1
+          countErrors1=0
+          countErrors2=0
       continue
+    else:
+      countErrors=0
     if auxprime == -1:
       auxprime = value
       continue
