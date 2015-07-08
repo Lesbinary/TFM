@@ -2,7 +2,7 @@
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc} % Para poner acentos y eñes directamente.
+\usepackage[utf8]{inputenc}
 \usepackage{pdfpages}
 \usepackage{listings}
 \usepackage[T1]{fontenc}
@@ -82,33 +82,9 @@
 
 \newpage
 \mbox{}
-\thispagestyle{empty} % para que no se numere esta pagina
-
-
-
-\chapter*{License}
-Documents are licensed under Creative Commons Attribution - ShareAlike 4.0 International (CC BY-SA).
-
-\url{http://creativecommons.org/licenses/by-sa/4.0/}
-
-
-
-Source code under GNU GENERAL PUBLIC LICENSE (GPL).
-
-\url{http://www.gnu.org/copyleft/gpl.html}
-
-
-\begin{figure}
-\centering
-\includegraphics{img/cc.png} 
-
-This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
-\end{figure}
-
-
-\newpage
 \thispagestyle{empty}
-\mbox{}
+
+
 
 
 \chapter*{}
@@ -124,8 +100,8 @@ Laura}
 
 
 \chapter*{Abstract}
-\addcontentsline{toc}{section}{Abstract} % si queremos que aparezca en el índice
-\markboth{ABSTRACT}{ABSTRACT} % encabezado
+\addcontentsline{toc}{section}{Abstract}
+\markboth{ABSTRACT}{ABSTRACT}
 
 This work is the result of interest in neural networks and classical music, knowledge that I wanted to combine after finishing the studies of the IARFID master and professional music degree. I wanted to contribute to an engineering task from the musicological point of view, so, after working on PAN 2015 author profiling task and learning about sentiment analysis, I concluded that I could use similar techniques in MIREX classical composer identification task.
 
@@ -144,11 +120,15 @@ This investigation includes the development of the idea and the software that im
 
 
 
-\tableofcontents % indice de contenidos
+\tableofcontents
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{List of Figures} % para que aparezca en el indice de contenidos
-\listoffigures % indice de figuras
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
 
 
 \newpage
@@ -158,13 +138,22 @@ This investigation includes the development of the idea and the software that im
 
 
 
-\chapter{Introduction} % Puede que la tenga que reescribir para no publicar esta idea de forma explícita
-\pagenumbering{arabic} % para empezar la numeración con números
-In the last years, Music Information Retrieval fields have been improving step by step and the majority of these fields are still using low level features of the audio signal. In computational linguistics authorship attribution, is usual to use features from the text representation as character measures, lexical measures and syntactic features. In fact, one of the features that the winner of PAN 2014 in the authorship task\cite{pan14} and most of author profiling task submissions in 2013\cite{pan13} use is the POS tagging of the text.
+
+\chapter{Introduction}
+\pagenumbering{arabic}
+In the last years, Music Information Retrieval fields have been improving step by step and the majority of these fields are still using timbral and chroma features of the audio signal, that is, features based on the timbre of the acoustic wave. On the other hand, in computational linguistics authorship attribution is usual to use features from the text representation as character measures, lexical measures and syntactic features. In fact, one of the features that the winner of PAN 2014 (Evaluation lab on uncovering Plagiarism, Authorship, and Social Software Misuse) in the authorship task\cite{pan14} and most of author profiling task submissions in 2013\cite{pan13} use is the part of speech (POS or grammatical) tagging of the text.
 
 So, in this project I approximate the idea of musical structure analysis of classical audio files to identificate composers. This whole concept could be compared to apply POS tagging and segmentation to a speech recording.
 
-Then, here we will focus on techniques of musical analysis, composition and machine learning instead of signal processing because none of the previous works in the author identification submissions of MIREX used this kind of high level features.
+Then, in this thesis we will focus on techniques of musical analysis, composition and machine learning instead of signal processing because none of the previous works in the author identification submissions of MIREX used this kind of high level features.
+
+This thesis is distributed in four sections:
+\begin{itemize}
+\item Introduction, in which we establish the state of the art from the MIREX contest and some theoretical concepts about the elements that are involved on the idea of the thesis, as Artificial Neural Networks and Musical Analysis.
+\item Implementation, where I explain the used technologies and the different features that I look for in a sample to identify the composer explaining why I chose them and how they work.
+\item Experiments, which explains and shows the tests with their results under a homemade audio dataset.
+\item Conclusions, summarizing and expanding the main idea for improvements and useful inferences of the process and results.
+\end{itemize}
 
 \section{MIREX}
 The Music Information Retrieval Evaluation eXchange (MIREX) edition of 2015 is organized by The International Music Information Retrieval Systems Evaluation Laboratory (IMIRSEL) at the Graduate School of Library and Information Science (GSLIS), University of Illinois at Urbana-Champaign (UIUC). It's hold as part of the 16th International Conference on Music Information Retrieval, ISMIR 2015, which will be held in Malaga, Spain, October 26th-30th, 2015.
@@ -203,16 +192,34 @@ This exchange has several kind of tasks related to Music Information Retrieval:
     \item Singing Voice Separation 
 \end{itemize}
 
-This work is oriented to the Audio Classification (Train/Test) Task of Audio Classical Composer Identification.
+This work is oriented to the Audio Classification (Train/Test) Task of Audio Classical Composer Identification, which submissions must be
+\begin{quote}
+[...] algorithms to classify music audio according to the composer of the track (drawn from a collection of performances of a variety of classical music genres).[...]
+\end{quote}
+
+The authors to classify are:
+\begin{itemize}
+\item Bach
+\item Beethoven
+\item Brahms
+\item Chopin
+\item Dvorak
+\item Handel
+\item Haydn
+\item Mendelssohn
+\item Mozart
+\item Schubert
+\item Vivaldi 
+\end{itemize}
 
 \section{State of the Art}
 Since this work is focused on MIREX exchange, the state of the art is easily obtainable because all the papers and submissions from previous years are stored and classified in the MIREX Wiki\cite{mirexWiki} and also lots of materials of the ISMIR proceedings\cite{ismirProc}.
 
 For the specific task of Classical Composer Identification in MIREX 2014 the machine learning algorithms used were Convolutional Neural Networks (CNN)\cite{qiuqiang} and multiclass Support Vector Machines (SVM)\cite{seung-ryoel}\cite{shumin}\cite{ming}\cite{byun}, also using PCA\cite{shumin} and a SVM ranker\cite{seung-ryoel} as a dimensional reduction algorithm. Previous years there were used Restricted Boltzmann Machines (RBM)\cite{pikrakis}, Gaussian Mixture Models (GMM)\cite{franz}, k-Nearest Neighbours classifier (kNN) and Multi Layer Perceptron (MLP)\cite{hamel}. In general, SVM is the most used technique for this task.
 
-From the features point of view, the most used features are timbral features as mel-frequency cepstral coefficients (MFCC)\cite{seung-ryoel}\cite{byun}\cite{franz}, decorrelated filter banks (DFB)\cite{seung-ryoel}\cite{byun} and octave-based spectral contrast (OSC)\cite{seung-ryoel}\cite{byun}, visual features as spectograms\cite{seung-ryoel}, spectral patterns (SP)\cite{klaus}, Delta spectral patterns (DSP)\cite{klaus} and Short Time Fourier Transform (STFT)\cite{qiuqiang}\cite{shumin}, and also rhythmic patterns as Logarithmic Fluctuation Patterns (LFP)\cite{klaus} and Correlation Patterns (CP)\cite{klaus}. After the extraction of these features, sometimes are preprocessed before using them in the machine learning system with some statistical features as mean and variance of the timbral features\cite{seung-ryoel} or with Gabor filters\cite{ming12}, as it is usually done in Biometrics and Computer Vision.
+From the features point of view, the most used features are timbral features as mel-frequency cepstral coefficients (MFCC)\cite{seung-ryoel}\cite{byun}\cite{franz}, decorrelated filter banks (DFB)\cite{seung-ryoel}\cite{byun} and octave-based spectral contrast (OSC)\cite{seung-ryoel}\cite{byun}, visual features as spectograms\cite{seung-ryoel}, spectral patterns (SP)\cite{klaus}, Delta spectral patterns (DSP)\cite{klaus} and Short Time Fourier Transform (STFT)\cite{qiuqiang}\cite{shumin}, and also rhythmic patterns as Logarithmic Fluctuation Patterns (LFP)\cite{klaus} and Correlation Patterns (CP)\cite{klaus}. After the extraction of these features, sometimes are preprocessed before using them in the machine learning system with some statistical features as mean and variance of the timbral features\cite{seung-ryoel} or with Gabor filters\cite{ming12}, as it is usually done in Biometrics and Computer Vision preprocessing stage.
 
-\begin{figure}
+\begin{table}
 \centering
    \begin{tabular}{ | l || l | }
    \hline
@@ -230,20 +237,30 @@ From the features point of view, the most used features are timbral features as 
    \end{tabular}
 
 \caption{Normalised Classification Accuracies of MIREX 2014.\cite{resultsMirex14}} \label{fig:MIREX14results}
-\end{figure}
+\end{table}
 
-Note that most of the submissions for Composer Classification task were also submitted for all Audio Classification (Train/Test) Tasks, so they are relatively generic audio classifiers algorithms.
+Note that most of the submissions for Composer Classification task were also submitted for all Audio Classification (Train/Test) Tasks, so they are relatively generic audio classifiers algorithms for music genres, moods and composers.
+
+Also note that none of the submissions is based on any elements of musical analysis.
 
 \section{Neural Networks}
 
+
 One of the most famous techniques of machine learning nowadays is the neural network topology.
 
-An artificial neural network is a class of classification program that is trained to solve problems by learning the features of the problem through a set of already classified data, or labeled training set. This specific kind of software is designed based on the study of how biologic brain works and it has lots of applications in computer vision, speech recognition, natural language processing, bioinformatics and many other science sectors.
+The basic definition of a machine learning algorithm like the artificial neural network is a process which an object is represented using acquired proprieties from sensors and later is recognized, classified or affects a prediction.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{img/machinelearning.png} 
+\caption{Machine learning generic scheme of perception\cite{rparedesNN}} \label{fig:machinelearning}
+\end{figure}
+
+An artificial neural network is a class of classification algorithm that belongs to the connectionist models and it is trained to solve problems by learning the features of the problem through a set of already classified data, or labeled training set (supervised learning). This specific kind of software is designed based on the study of how biologic brain works and it has lots of applications in computer vision, speech recognition, natural language processing, bioinformatics and many other science sectors.
 
 
 \begin{quote}
-\em The word network in the term 'artificial neural network' refers to the inter-connections between the neurons in the different layers of each system. An example system has three layers. The first layer has input neurons which send data via synapses to the second layer of neurons, and then via more synapses to the third layer of output neurons. More complex systems will have more layers of neurons, some having increased layers of input neurons and output neurons. The synapses store parameters called "weights" that manipulate the data in the calculations.
+\em The word network in the term 'artificial neural network' refers to the inter-connections between the neurons in the different layers of each system. An example system has three layers. The first layer has input neurons which send data via synapses to the second layer of neurons, and then via more synapses to the third layer of output neurons. More complex systems will have more layers of neurons, some having increased layers of input neurons and output neurons. The synapses store parameters called "weights" that manipulate the data in the calculations. \ref{fig:neuralnet}
 
 An ANN is typically defined by three types of parameters:
 \begin{itemize}
@@ -265,7 +282,9 @@ Also, this kind of topology is easily paralelizable and it has been implemented 
 
 The origin of the artificial neural networks can be stablished at the first models defined with mathematical notation by McCullock and Pitt in 1943, but the first successful results are obtained in 1959 when the perceptron is created by Rosenblat, which later in 1975 is improved by Paul Werbos adding the backpropagation algorithm.
 
-In the last years, the use of this type of learning algorithms has increased compared to the Radial Basis Functions or the Support Vector Machines algorithms, caused by the "boom" of the Deep Learning and the Convolutional Networks.
+Some years later the use decreased by the efficiency of Support Vector Machines and some unsupervised learning algorithms due to the difficulty of obtain labeled data.
+
+In the last years, the use of ANN learning algorithms has increased compared to the popular Radial Basis Functions or the Support Vector Machines algorithms, caused by the "boom" of the Deep Learning and the Convolutional Networks.
 
 Nowadays, the most used artificial neural networks are the Restricted Boltzmann Machines, the Convolutional Neural Networks and the Deep Belief Networks.
 
@@ -275,13 +294,28 @@ As Bishop states in his book "Pattern Recognition and Machine Learning":
 \em In other pattern recognition problems, the training data consists of a set of input vectors x without any corresponding target values. The goal in such unsupervised learning problems may be to discover groups of similar examples within the data, where it is called clustering, or to determine the distribution of data within the input space, known as density estimation, or to project the data from a high-dimensional space down to two or three dimensions for the purpose of visualization.\cite{Bishop}
 \end{quote}
 
-In short, unsupervised learning is a learning technique focused on finding hidden structure in unlabeled data as k-Nearest-Neighbours or Autoencodes do. This last one is used by Deep Belief Networks to pretrain an Artificial Neural Network. 
+In short, unsupervised learning is a type of learning technique focused on finding hidden structure or drawing inferences from unlabeled input data, as k-Nearest-Neighbours, Gaussian mixture models or Hidden Markov models do. The Restricted Boltzmann machine is a new Deep Learning technique which belongs to the unsupervised learning algorithms and is the main component of Deep Belief Networks.
+
+\subsection{Restricted Boltzmann Machines}
+The Restricted Boltzmann Machines are a type of stochastic artificial forward-backward neural network with sigmoid activation functions. They also are a particular form of log-linear Markov Random Field based on the Energy function.
+
+This neural network is composed by a layer of visible units, a layer of hidden units (the latent factors we try to learn) and a bias unit.
+
+An example of use of a Restricted Boltzmann Machine can be seen in \ref{fig:rbm}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{img/rbm.png} 
+\caption{RBM used to classify films based on two natural groups: SF-fantasy and Oscar winners\cite{rbmGit}} \label{fig:rbm}
+\end{figure}
+
 
 \subsection{Deep Belief Network}
+The Deep Belief Network is a type of Deep Learning algorithms, which is based on a set of stacked Restricted Boltzmann Machines undirectly connected and trained with unsupervised learning, usually the Contrastive Divergence algorithm. These RBMs try to reconstruct the data layer by layer. \ref{fig:dbn} The resultant DBN can be unfolded into a Multi Layer Perceptron (feed forward network) with initialized values and after it can be "fine-tuned" with labeled data using backpropagation.
 
-The Deep Belief Network is a subtype of Artificial Neural Networks inside the Deep Learning algorithms, which is based on a set of hidden units layers with unsupervised learning. These layers try to reconstruct the data layer by layer and a final set of layers, that are treated as a Multi Layer Perceptron, are trained with labeled data using backpropagation.
+In the Deep Belief Network
 \begin{quote}
-\em The top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
+\em [...] the top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
 
 The two most significant properties of deep belief nets are:
 
@@ -292,7 +326,7 @@ The two most significant properties of deep belief nets are:
 \end{itemize}
 \end{quote}
 
-Since the final result is a MLP, the main difference of DBN with a simple MLP is that this MLP is initialized with the reconstructed data of the DBN which usually obtains better results.
+Since the final result can be unfolded into a MLP, the main practical difference of using DBN is that this resulting MLP is initialized with the reconstructed data of the DBN instead of a random initialization, which usually obtains better results and can be trained with more unlabeled data that the used for MLP.
 
 
 \begin{figure}
@@ -302,10 +336,10 @@ Since the final result is a MLP, the main difference of DBN with a simple MLP is
 \end{figure}
 
 
-\subsection{Musical analysis}
+\subsection{Musical analysis}\label{musical_analysis}
 The process and the academic discipline which studies the musical works from the pattern aspect, the internal structure, composition techniques and interpretative aspects is the musical analysis.
 
-The basic objectives of the musical analysis are the recognition of different elements of the work
+The basic objectives of the musical analysis are the recognition of different elements of the work:
 
 \begin{itemize}
 \item Structure
@@ -316,18 +350,18 @@ The basic objectives of the musical analysis are the recognition of different el
 \item Dynamic
 \end{itemize}
 
-Also, to study the relationships inside the previous elements and between them. And finally obtain conclusions about the relationships, the compositor ideas and why the composer structured the elements in that way.
+Also, is objective of study the existent relationships inside the previous elements and between them to finally obtain conclusions about the relationships, the compositor ideas and why the composer structured the elements in that way.
 
-Usually, the musical analysis is performed over a score because is easier to identify the elements, but also listening to parts of the work is sometimes needed.
+Usually, the musical analysis is performed over a score because is easier to identify these mentioned elements, but also listening to some parts of the work is needed.
 
-This analysis include different subanalysis or techniques that are used to describe the musical work:
+The musical analysis includes different subanalysis or techniques that are used to describe the musical work:
 
 \begin{itemize}
 \item Discretization: breaking the piece down into smaller parts and examine the way these parts are connected. In fact, Fred Lerdahl\cite{Lerdahl} argues that discretization is indispensable for a musical analysis.
 \item Harmonic analysis: indicate the harmonic functions on the same score including figured bass and modulations if harmony is tonal.
 \end{itemize}
 
-When the discretization is more intuitive to perform, the harmonic analysis implies the knowledge of the harmonies in different scales\ref{fig:scalesharmonies}. Also, the knowledge of the most famous cadences is very important. These are some:
+Although the discretization is more intuitive to perform, the harmonic analysis implies the knowledge of the harmonies in different scales\ref{fig:scales}. Also, the knowledge of the most famous cadences is very important. These are some of them:
 
 \begin{itemize}
 \item Perfect Authentic Cadence (PAC): V to I (chords in root position)
@@ -337,7 +371,7 @@ When the discretization is more intuitive to perform, the harmonic analysis impl
 \item Interrupted Cadence: V to vi
 \end{itemize}
 
-Also there are more cadences and larger common progressions, like "I IV I IV" or "I IV V7 I" that are interesting to note\cite{jacmuse}.
+And there are more cadences and larger common progressions, like "I IV I IV" or "I IV V7 I" that are interesting to obtain from the analyzed work \cite{jacmuse}.
 
 \begin{figure}
 \centering
@@ -345,9 +379,11 @@ Also there are more cadences and larger common progressions, like "I IV I IV" or
 \caption{Figured bass in different scales of C} \label{fig:scales}
 \end{figure}
 
-As an illustrative example, looking at this Beethoven Minuet\ref{fig:music_analysis} we can see the letters above the staff that denotes the different sections of the score. We obtained "a", "b", "c" and again "b". Also, we made the harmonic analysis ("I", "V", "IV" and the other variants and elements below the staff) focusing on cadences like Half Cadence (HC), Perfect Authentic Cadence (PAC) or Imperfect Authentic Cadence (IAC). There are more elements like passing tones (PT) and subjective descriptions.
+As an illustrative example of a music analysis, looking at this Beethoven Minuet\ref{fig:music_analysis} we can see the letters above the staff that denotes the different sections of the score. We obtained "a", "b", "c" and again "b". Also, we made the harmonic analysis ("I", "V", "IV" and the other variants, inversions and elements below the staff) focusing on cadences like Half Cadence (HC), Perfect Authentic Cadence (PAC) or Imperfect Authentic Cadence (IAC). There are more elements like passing tones (PT) and subjective descriptions at the margins.
 
-This field of the music theory covers music from medieval era to the contemporary music, but in this work we are focused on classical music analysis and the application of the techniques that we showed in the example.
+But the interesting idea here is that the previous features, like in the texts, help to discriminate the authors.
+
+This field of the music theory covers music from medieval era to the contemporary music, but in this thesis we are focused on classical music analysis and the application of the techniques that we showed in the example.
 
 \begin{figure}
 \centering
@@ -360,65 +396,96 @@ This field of the music theory covers music from medieval era to the contemporar
 \mbox{}
 
 
+
 \chapter{Implementation}\label{implementation}
+In this section I explain each part of the proposed system \ref{fig:workflow} from the technologies I chose and the features that I extracted to identify the composers.
 
 \section{Technologies}\label{techs}
+These are the technologies used in all the stages of the system.
 
 \subsection{Sonic Annotator and Visualizer}
-Sonic Annotator\cite{chris2010a} is a batch tool for feature extraction and annotation of audio files using Vamp plugins (binary modules that extract descriptive information from audio data). It was originally developed in 2009 at Queen Mary, University of London as part of the OMRAS2 project, to facilitate feature data publication on the Semantic Web. It has since been used in a number of audio annotation projects and to power online audio feature retrieval APIs. It's published under GNU General Public License v2.
+Sonic Annotator\cite{chris2010a} is a batch tool for feature extraction and annotation of audio files using Vamp plugins (binary modules that extract descriptive information from audio data). It was originally developed in 2009 at Queen Mary, University of London as part of the OMRAS2 project, to facilitate feature data publication on the Semantic Web. It has been used in audio annotation projects and it's used to power online audio feature retrieval APIs. It's published under GNU General Public License v2.
 
 Sonic Visualizer\cite{SonicVisualiser} is a graphical application that plots the content of the extracted data from Sonic Annotator. It's also developed by the Centre for Digital Music at Queen Mary, University of London and published under GPLv2.
+
+Both tools are powerful because they allow you to use the QM Vamp Plugins that were presented to MIREX in previous years\cite{vamp} and they have an approximate accuracy of 80\% in Chord Detection and Key Estimation \cite{noland}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{img/semantic-web-and-friends-webscale.png} 
-\caption{Workflow diagram of Sonic Annotator and Visualizer} \label{fig:sonic}
+\caption{Workflow diagram of Sonic Annotator and Visualizer} \label{fig:diag_sonic}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{img/sonic_visualizer.png} 
-\caption{Bach Prelude 568 fragment with Key Strength Plot in Sonic Visualizer} \label{fig:sonic}
+\caption{Fragment of Bach's Prelude no. 568 with Key Strength Plot in Sonic Visualizer} \label{fig:keystrength}
 \end{figure}
 
 \subsection{Python}
+High level programming language designed to be easy to read, understand and implement. It supports multiple programming paradigms including object-oriented, imperative, functional and procedural. It's published under PSFL licence (open source).
+
+I chose this programming language because it makes easy to work with CSV files and dictionaries (the C++ or Java "hashmaps") for counting the feature values of the audio samples.
 
 \subsection{Bash}
+Bash is a Unix shell and a command language written by Brian Fox for the GNU Project as a free replacement of the Bourne shell. Bash Shell is included in most of GNU/Linux and OS X releases. 
 
-\subsection{MATLAB}
+The most famous features of Bash (and all Unix shells) are filename globbing (wildcard matching), piping, command substitution, variables and control structures for condition-testing and iteration.
+
+With this features, this tool is perfect to simplify the way of working with thousand of files that need to be passed to other languages scripts or programs, like Python or Sonic Annotator. Also, the example of submission calling formats showed ".sh" scripts for feature extraction, training and classifying samples, so I followed it.
+
+\subsection{MATLAB and Octave}
+MATLAB is a multi-paradigm numerical computing environment and a proprietary programming language developed by MathWorks. This environment is focused on matrix manipulations and functions and data plotting. For this reasons, this environment (along with Python) is the most used in Mathematics and Statistical fields.
+
+Octave is quite similar to MATLAB and most programs are compatible with both, but Octave is developed as open source and part of GNU Project.
+
 
 \subsection{Deep Learn Toolbox}
+The Deep Learning Toolbox of Rasmus Berg is a Matlab/Octave toolbox for Deep Learning. Includes Deep Belief Nets, Stacked Autoencoders, Convolutional Neural Nets, Convolutional Autoencoders and vanilla Neural Nets. It's very easy to use, documented and gives working examples in actual problems giving state of the art results.\cite{IMM2012-06284}
+
+Also, given the practice I got in IARFID master using this toolbox in several subjects and the good results and performance it showed, I wanted to save some time from learning more tools using it again.
 
 
 
 \section{Feature extraction}\label{sec:feature_extraction}
+In this chapter I explain the features I extracted from audio samples in the training process (at the beginning) to train the neural network and at the end, at the moment to classify new samples.
 
 
 \subsection{Key Mode}\label{subsec:keymode}
-
-The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature.
+The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature. Major is written as 0 and minor as 1.
 
 \subsection{Segmentation}\label{subsec:segmentation}
+This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.\ref{fig:sonic}
 
-This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{img/segmentation.png} 
+\caption{Fragment of Bach's Prelude no. 568 with Segmentation plot in Sonic Visualizer} \label{fig:sonic}
+\end{figure}
 
 \subsection{Tonality}\label{subsec:chord_windows}
+The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin\ref{fig:keystrength} the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window (in the figure, the most red value of a column) obtaining a vector of keys.
 
-The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window.
+From this keys vector, I created a script in Python \ref{fig:keyFormula} that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
 
-This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I created a script in Python that use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
+\begin{figure}
+
+\[ Tone(Keys,pond) = argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * (1-w_{(k+7)\%12})*pond \]
+\caption{Formula to obtain a ponderated key using perfect cadences and key strength} \label{fig:keyFormula}
+\end{figure}
+
 
 \subsection{Harmonic analysis}\label{subsec:uni_bi_tri}
+The previous key vector, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the previous obtained key of the sample.
 
-From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). As a parallelism of the POS tagging in text, is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
+From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I) \ref{musical_analysis}. As a parallelism of the POS tagging in text, is interesting to analyze the impact of this features because it's known that discriminate the composers \cite{desportes}.
 
 \subsection{MFCC means}\label{subsec:mfcc_means}
-At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this low level feature with the previous ones.
+At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this timbral feature with the structural ones.
 
 
 \section{Classification}\label{sec:classification}
-
-In the proposed systems, I used a Neural Network (NN) in one system and a Deep Belief Network (DBN) in another one to pre-train a Neural Network as a classifiers implemented by Rasmus Berg \cite{IMM2012-06284}. The features are normalized with z-score and after that, normalized between 0 and 1 before using the neural network. The networks are configured with 44 neurons at the hidden layer, 300 epochs, a batch size based on a divisor of the number of dataset samples, sigmoid activation function and softmax function at the output layer. I tested the system with a homemade database of FLAC files, extracted from my own CD's of the authors of the task.
+In the proposed systems, I used a Multi Layer Perceptron (Feedforward Backpropagation Neural Network or simply NN) in one system and a Deep Belief Network (DBN) in another one as a classifiers. The features are normalized with z-score to remove outlayers and after that I normalized between 0 and 1 before using the neural network because of artificial neural network input restriction by design. The networks are configured with 44 neurons at the hidden layer, 300 epochs, a batch size based on a divisor of the number of dataset samples, sigmoid activation function and softmax function at the output layer. I tested the system with a homemade database of FLAC files, extracted from my own CD's of the authors of the task.
 
 \begin{figure}
 \begin{center}
@@ -456,7 +523,7 @@ In the proposed systems, I used a Neural Network (NN) in one system and a Deep B
   \draw[to] (Cfeatures) -- node[midway,right] {are passed to} (mat_class);
   \draw[to] (mat_class) -- node[midway,right] {obtains} (classification);
 \end{tikzpicture}
-\caption{Workflow of the proposed system}
+\caption{Workflow of the proposed system}\label{fig:workflow}
 \end{center}
 \end{figure}
 
@@ -466,7 +533,7 @@ In the proposed systems, I used a Neural Network (NN) in one system and a Deep B
 
 
 \chapter{Experiments}\label{experiments}
-For the experiments, I used a database created by myself. The reason for this decision is that music database are not easy to distribute because of copyright issues.
+For the experiments, I used a database created by myself. The reason for this decision is that music databases are not easy to distribute because of copyright issues and this task requires a very specific audio samples.
 
 The database I created is structured exactly the same way that the MIREX task specifies:
 
@@ -492,21 +559,17 @@ The database I created is structured exactly the same way that the MIREX task sp
 
 The disks I used are (respectively to each composer):
 \begin{itemize}
-\item 2772 30-second 22.05 kHz mono wav clips
-\item 11 "classical" composers (252 clips per composer), including:
-	\begin{itemize}
 	\item Bach - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
-	\item The Very Best of Beethoven
-	\item The Best of Brahms
-	\item Chopin - Complete Edition (Deutsche Grammophon)
-	\item The Very Best of Dvorak
-	\item Handel - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
+	\item The Very Best of Beethoven (ASIN: B000B6N64A)
+	\item The Best of Brahms (ASIN: B0000014HA)
+	\item Chopin - Complete Edition (Deutsche Grammophon) (ASIN: B00001X58Z)
+	\item The Very Best of Dvorak (ASIN: B000S5C8O8)
+	\item Handel - The Baroque Music Library  (\url{http://www.baroquemusiclibrary.com/})
 	\item Haydn - The Baroque Music Library (\url{http://www.baroquemusiclibrary.com/})
-	\item Mendelssohn - The complete symphonies
-	\item Mozart - Complete Works 
-	\item Franz Schubert - Masterworks
-	\item The Very Best of Vivaldi 
-	\end{itemize}
+	\item Mendelssohn - The complete symphonies (ASIN: B003Y3MYWC)
+	\item Mozart - Complete Works (ASIN: B000BLI3K2)
+	\item Franz Schubert - Masterworks (ASIN: B00062FLJC)
+	\item The Very Best of Vivaldi (ASIN: B000B6N63Q)
 \end{itemize}
 
 
@@ -554,12 +617,14 @@ rm tmp
 \end{lstlisting}
 
 
-This created an amount of 2420 files (6.4GB), but due to the length gap between authors, I decided to delete some audio fragment from some composers and created a final corpus of 1100 files (2.100 files per author).
+This created an amount of 2420 files (6.4GB), but due to the length gap between authors after some tests, I decided to delete some audio fragments from some composers and created a final corpus of 1100 files (2.100 files per author).
 
 So, I experimented with my dataset focusing on the harmonic analysis because that features were implemented by myself. I experimented with different Neural Network configurations, with DBN and NN, and using different groups of features to compare the impact of each of them using a three-fold cross validation process.
 
+I named "unigrams" and "bigrams" the figured bass and the cadences given the simile with text n-grams.
 
-\begin{figure}
+
+\begin{table}
 \centering
 
    \begin{tabular}{ | l | l || l | l |}
@@ -568,14 +633,21 @@ So, I experimented with my dataset focusing on the harmonic analysis because tha
    Means MFCC & 20 & 33.5 & \bf{37.1} \\ \hline
    Means MFCC + Segmentation + Major/Minor & 32 & \bf{27.8} & 25.9 \\ \hline
    Harmonic Analysis + Means MFCC & 68 & 28.0 & \bf{35.3}\\ \hline
+   Harmonic Analysis & 48 & \bf{12.1} & 10.5 \\ \hline
+   Unigrams+Bigrams + Means MFCC & 45 & 32.3 & \bf{33.6} \\ \hline
+   Unigrams+Bigrams & 25 & \bf{10.1} & 9.4 \\ \hline
+   Unigrams + Means MFCC & 32 & 27.8 & \bf{38.0} \\ \hline
+   Unigrams & 12 & 8.9 & \bf{9.5} \\ \hline
+   Segmentation & 10 & 8.4 & \bf{8.7} \\ \hline
+   Harmonic Analysis + Segmentation + Major/Minor & 60 & \bf{11.3} & 11.1 \\ \hline
    All & 80 & 18.1 & \bf{29.7} \\ \hline
    \end{tabular}
 
 \caption{Average three-fold cross-validation accuracies, in percent. Moldface: best performance for a given setting (row).} \label{fig:results}
-\end{figure}
+\end{table}
 
 
-The results are approximate because the MIREX Train/Test tasks are not finished at the submission deadline of this paper.
+NOTE: The results of the MIREX Train/Test tasks are not available at the submission deadline of this report.
 
 \newpage
 \thispagestyle{empty}
@@ -583,10 +655,23 @@ The results are approximate because the MIREX Train/Test tasks are not finished 
 
 
 \chapter{Conclusions}\label{conclusions}
+In this work we explained a different approach of a music audio classification problem from the music theory point of view using a structural analysis of the musical work. After the results, we can conclude that the propagated error of the feature extraction is crucial for this theory to work. This can be seen at the penultimate test, which uses all the features I implemented and the accuracy is the more or less the same as a "random" classifier, and the MFCC means based classifier gets more than almost all the other results. But we can see little improvements if we compute the classification with figured bass (unigrams).
 
+Also, if we compare with the overall results of MIREX 2014 \ref{fig:MIREX14results}, the best result is comparable to BK4, which used MFCC, DFB, OSC, Gabor filters, temporal and visual features in a SVM machine\cite{seung-ryoel}.
+
+ 
 
 \section{Future work lines}
+Given this initial idea of working with audio from the harmony and structure of the music, this idea can be improved looking for more plausible patterns to identify:
 
+\begin{itemize}
+\item Melody or bass patterns (using implementations from the state of the art of MIREX which are close to 90\% of accuracy)
+\item Other timbral features to compare with (like DFB or OSC)
+\item More accurate tonality detection to improve the harmony analysis
+\item Or use different machine learning algorithms like Convolutional Neural Nets
+\end{itemize}
+
+And finally, as this work resulted as a parallelism with PAN contest, this thesis idea can be suggested to be used also to profile the composer of the classical works to obtain the age of the composer (when the work was composed) or even nationalities due to the different schools of European composers, that can be settle a new interesting task in the MIREX exchange.
 
 
 
