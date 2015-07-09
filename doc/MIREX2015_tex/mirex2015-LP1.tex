@@ -60,35 +60,34 @@ These features are susceptible to having errors. However, as shown in the PAN co
 
 
 
-\section{Feature extraction}\label{sec:feature_extraction}
-
-Some of the next explained features are implemented by myself and other ones are implemented through the Queen Mary plugins of the Centre for Digital Music (University of London), tested with Sonic Visualizer \cite{sonic_visualizer} and applied to the dataset using Sonic Annotator \cite{sonic_annotator}.
-
 \subsection{Key Mode}\label{subsec:keymode}
-
-The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature.
+The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature. Major is written as 0 and minor as 1.
 
 \subsection{Segmentation}\label{subsec:segmentation}
-
-This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.
+This is also feature from a Vamp Plugin from Queen Mary which divides the audio channel into 10  segments based on chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.
 
 \subsection{Tonality}\label{subsec:chord_windows}
+The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window (in the figure, the most red value of a column) obtaining a vector of keys.
 
-The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window.
+From this keys vector, I created a script in Python \ref{fig:keyFormula} that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
 
-This set of windows, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the key of the sample, which I obtain using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma, and the values of key strength plugin using 10 chroma. This key is used as a feature.
+\begin{figure}
+\[ argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * (1-w_{(k+7)\%12})*pond \]
+\caption{Formula to obtain a ponderated key using perfect cadences and key strength} \label{fig:keyFormula}
+\end{figure}
+
 
 \subsection{Harmonic analysis}\label{subsec:uni_bi_tri}
+The previous key vector, then, need to be transposed to convert this incontextual chords into a functional chords to get a functional harmonic analysis of the sample. To transpose, I use the previous obtained key of the sample.
 
-From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). Is interesting to analyse the impact of this features because it's known that discriminate the composers \cite{desportes}.
+From the previous feature we can obtain the number of functional units in the sample (tonic, dominant, subdominant, etc.), the number of most used cadences (perfect authentic cadence, plagal cadence, half-cadence, etc.) and even a set of most used progressions of three chords (like IV-V-I). As a parallelism of the POS tagging in text, is interesting to analyze the impact of this features because it's known that discriminate the composers \cite{desportes}.
 
 \subsection{MFCC means}\label{subsec:mfcc_means}
-At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this low level feature with the previous ones.
+At last, I included the means of the MFCC (Vamp Plugin) from the sample, using 20 coefficients and including C0, also to compare this timbral feature with the structural ones.
 
 
 \section{Classification}\label{sec:classification}
-
-In the proposed systems, I used a Neural Network (NN) in one system and a Deep Belief Network (DBN) in another one to pre-train a Neural Network as a classifiers implemented by Rasmus Berg \cite{rasmusen}. The features are normalized with z-score and after that, normalized between 0 and 1 before using the neural network. The networks are configured with 44 neurons at the hidden layer, 300 epochs, a batch size based on a divisor of the number of dataset samples, sigmoid activation function and softmax function at the output layer. I tested the system with a homemade database of FLAC files, extracted from my own CD's of the authors of the task.
+In the proposed systems, I used a Multi Layer Perceptron (Feedforward Backpropagation Neural Network or simply NN) in one system and a Deep Belief Network (DBN) in another one as a classifiers. The features are normalized with z-score to remove outlayers and after that I normalized between 0 and 1 before using the neural network because of artificial neural network input restriction by design. The networks are configured with 44 neurons at the hidden layer, 300 epochs, a batch size based on a divisor of the number of dataset samples, sigmoid activation function and softmax function at the output layer. I tested the system with a homemade database of FLAC files, extracted from my own CD's of the authors of the task.
 
 \begin{figure}
 \begin{center}
@@ -126,7 +125,7 @@ In the proposed systems, I used a Neural Network (NN) in one system and a Deep B
   \draw[to] (Cfeatures) -- node[midway,right] {are passed to} (mat_class);
   \draw[to] (mat_class) -- node[midway,right] {obtains} (classification);
 \end{tikzpicture}
-\caption{Workflow of the proposed system}
+\caption{Workflow of the proposed system}\label{fig:workflow}
 \end{center}
 \end{figure}
 

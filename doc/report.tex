@@ -455,7 +455,7 @@ In this chapter I explain the features I extracted from audio samples in the tra
 The Vamp Plugin "Key Mode" calculates the major or minor mode of the estimated key in windows of 10 chroma frames. After calculate them, I use the count of the changes between minor and major as a feature. Major is written as 0 and minor as 1.
 
 \subsection{Segmentation}\label{subsec:segmentation}
-This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on Chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.\ref{fig:sonic}
+This is also feature from a Vamp Plugin from Queen Mary which divides the channel into 10 structural segments based on chroma and MFCC. Also, it labels similar segments, which gives us a structural analysis of the sample based on tonality. As key mode, I also use the count of the segments that appear at the segment.\ref{fig:sonic}
 
 \begin{figure}
 \centering
