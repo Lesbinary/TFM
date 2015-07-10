@@ -1,0 +1,150 @@
+\begin{thebibliography}{10}
+
+\bibitem{rparedesNN}
+R.~P. Palacios, ``Redes neuronales artificiales - slides - muiarfid 2015,''
+  2015.
+
+\bibitem{rbmGit}
+E.~Chen, ``Restricted boltzmann machines in python,'' 2014.
+
+\bibitem{resultsMirex14}
+IMIRSEL, ``Summary mirex 14,'' 2014.
+
+\bibitem{pan14}
+E.~Stamatatos, W.~Daelemans, B.~Verhoeven, M.~Potthast, B.~Stein, P.~Juola,
+  M.~A. Sánchez-Pérez, and A.~Barrón-Cedeño, ``Overview of the author
+  identification task at pan 2014,'' (Bauhaus-Universität Weimar), p.~17,
+  2014.
+
+\bibitem{pan13}
+F.~Rangel, P.~Rosso, M.~Koppel, E.~Stamatatos, and G.~Inches, ``Overview of the
+  author profiling task at pan 2013,'' (Bauhaus-Universität Weimar),
+  pp.~6--10, 2013.
+
+\bibitem{mirexWiki}
+IMIRSEL, ``Mirex home,'' 2015.
+
+\bibitem{ismirProc}
+IMIRSEL, ``Ismir proceedings,'' 2015.
+
+\bibitem{qiuqiang}
+Q.~Kong and X.~Feng, ``Music genre/mood/composer classification: Mirex 2014
+  submissions,'' tech. rep., South China University of Technology, 2014.
+
+\bibitem{seung-ryoel}
+S.-R. Baek and M.~Y. Kim, ``Music genre/mood/composer classification: Mirex
+  2014 submissions,'' tech. rep., Dept. Information and Communication
+  Engineering, Sejong University, Seoul, Korea, 2014.
+
+\bibitem{shumin}
+S.~Xu and Y.~Gu, ``Music genre classification mirex 2014 submissions,'' tech.
+  rep., Dept. Electrical and Computer Engineering, University of Rochester, NY,
+  2014.
+
+\bibitem{ming}
+M.-J. Wu and J.-S.~R. Jang, ``Confidence-based late fusion for music genre
+  classification,'' tech. rep., Computer Science Department, National Tsing Hua
+  University, Hsinchu, Taiwan, 2014.
+
+\bibitem{byun}
+K.~Byun, S.-R. Baek, J.-S. Lee, S.-J. Jang, and M.~Y. Kim, ``Music
+  genre/mood/composer classification: Mirex 2013 submissions,'' tech. rep.,
+  Dept. of Information and Communication,Engineering, Sejong University, Seoul,
+  Korea, 2013.
+
+\bibitem{pikrakis}
+A.~Pikrakis, ``Audio latin music genre classification: a mirex 2013 submission
+  based on a deep learning approach to rhythm modelling,'' tech. rep., Dept. of
+  Informatics, University of Piraeus, 2013.
+
+\bibitem{franz}
+F.~de~Leon and K.~Martinez, ``Using timbre models for audio classification,''
+  tech. rep., University of Southampton, 2013.
+
+\bibitem{hamel}
+P.~Hamel, ``Multi-timescale pmscs for music audio classification,'' tech. rep.,
+  University of Montreal, 2012.
+
+\bibitem{klaus}
+K.~Seyerlehner and M.~Schedl, ``Mirex 2014: Optimizing the fluctuation pattern
+  extraction process,'' tech. rep., Dept. of Computational Perception, Johannes
+  Kepler University, Linz, Austria, 2014.
+
+\bibitem{ming12}
+M.-J. Wu and J.-S.~R. Jang, ``Mirex 2012 submissions - combining acoustic and
+  multi-level visual features for music genre classification,'' tech. rep.,
+  Department of Computer Science, National Tsing Hua University, Hsinchu,
+  Taiwan, 2012.
+
+\bibitem{wiki:ann}
+Wikipedia, ``Artificial neural network --- wikipedia{,} the free
+  encyclopedia,'' 2015.
+\newblock [Online; accessed 2-July-2015].
+
+\bibitem{Bishop}
+C.~M. Bishop, {\em Pattern Recognition and Machine Learning (Information
+  Science and Statistics)}.
+\newblock Secaucus, NJ, USA: Springer-Verlag New York, Inc., 2006.
+
+\bibitem{Hinton:2009}
+G.~E. Hinton, ``{D}eep belief networks,'' vol.~4, no.~5, p.~5947, 2009.
+
+\bibitem{Lerdahl}
+F.~Lerdahl, ``Cognitive constraints on compositional systems,'' {\em
+  Contemporary Music Review}, vol.~6, no.~2, pp.~97--121, 1992.
+
+\bibitem{jacmuse}
+J.~Craig, ``Tonal resources for the creative musician,'' 2005.
+
+\bibitem{chris2010a}
+C.~Cannam, M.~O. Jewell, C.~Rhodes, M.~Sandler, and M.~d'Inverno, ``Linked data
+  and you: Bringing music research software into the semantic web,'' {\em
+  Journal of New Music Research}, vol.~39, no.~4, pp.~313--325, 2010.
+
+\bibitem{SonicVisualiser}
+C.~Cannam, C.~Landone, and M.~Sandler, ``Sonic visualiser: An open source
+  application for viewing, analysing, and annotating music audio files,'' in
+  {\em Proceedings of the ACM Multimedia 2010 International Conference},
+  (Firenze, Italy), pp.~1467--1468, October 2010.
+
+\bibitem{vamp}
+U.~o.~L. Centre for Digital Music~at Queen~Mary, ``Qm vamp plugins
+  documentation,'' 2014.
+
+\bibitem{noland}
+M.~Mauch, K.~Noland, and S.~Dixon, ``Mirex submissions for audio chord
+  detection (no training) and structural segmentation,'' tech. rep., Queen Mary
+  University of London, Centre for Digital Music, 2009.
+
+\bibitem{IMM2012-06284}
+R.~B. Palm, ``Prediction as a candidate for learning deep hierarchical models
+  of data,'' 2012.
+
+\bibitem{desportes}
+Y.~Desportes and A.~Bernaud, {\em Manuel pratique pour l'approche des styles,
+  de Bach à Ravel}.
+\newblock Conservatoire National Supérieur de Paris, 1979.
+
+\bibitem{gkiokas}
+A.~Gkiokas, V.~Katsouros, and G.~Carayannis, ``Ilsp audio music classification
+  algorithm for mirex 2011,'' tech. rep., National Technical University of
+  Athens, 2011.
+
+\bibitem{mirex14}
+J.~S. Downie and IMIRSEL, ``Mirex 2014 evaluation results,'' (University of
+  Illinois at Urbana-Champaign), 2014.
+
+\bibitem{sound_patterns}
+P.~Magnuson, ``Sound patterns: A structural examination of tonality,
+  vocabulary, texture, sonorities, and time organization in western art
+  music,'' august 2008-2009.
+
+\bibitem{structural_functions}
+W.~T. Berry, {\em Structural Functions in Music}.
+\newblock General Publishing Company, 1976.
+
+\bibitem{beyond_orpheus}
+D.~Epstein, {\em Beyond Orpheus: Studies in Musical Structure}.
+\newblock MIT Press Classics, 1979.
+
+\end{thebibliography}

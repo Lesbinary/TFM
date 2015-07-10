@@ -1,0 +1,19 @@
+\select@language {UKenglish}
+\select@language {UKenglish}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Machine learning generic scheme of perception\cite {rparedesNN}}}{6}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces General structure of a multilayer perceptron\cite {rparedesNN}}}{7}{figure.1.2}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces RBM used to classify films based on two natural groups: SF-fantasy and Oscar winners\cite {rbmGit}}}{9}{figure.1.3}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Deep Belief Network training example\cite {rparedesNN}}}{10}{figure.1.4}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Figured bass in different scales of C}}{12}{figure.1.5}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Analysis of a Beethoven Minuet No. 3. of 4 in E-flat}}{13}{figure.1.6}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Workflow diagram of Sonic Annotator and Visualizer}}{16}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Fragment of Bach's Prelude no. 568 with Key Strength Plot in Sonic Visualizer}}{17}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Fragment of Bach's Prelude no. 568 with Segmentation plot in Sonic Visualizer}}{19}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Formula to obtain a ponderated key using perfect cadences and key strength}}{20}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Workflow of the proposed system}}{22}{figure.2.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

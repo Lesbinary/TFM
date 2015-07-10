@@ -1,0 +1,69 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: report.aux
+The style file: ieeetr.bst
+Database file #1: bibliography.bib
+Warning--entry type for "IMM2012-06284" isn't style-file defined
+--line 1 of file bibliography.bib
+Warning--entry type for "mirexWiki" isn't style-file defined
+--line 7 of file bibliography.bib
+Warning--entry type for "resultsMirex14" isn't style-file defined
+--line 15 of file bibliography.bib
+Warning--entry type for "vamp" isn't style-file defined
+--line 22 of file bibliography.bib
+Warning--entry type for "ismirProc" isn't style-file defined
+--line 29 of file bibliography.bib
+Warning--entry type for "sound_patterns" isn't style-file defined
+--line 171 of file bibliography.bib
+Warning--entry type for "rbmGit" isn't style-file defined
+--line 180 of file bibliography.bib
+Warning--entry type for "jacmuse" isn't style-file defined
+--line 187 of file bibliography.bib
+Warning--string name "scholarpedia" is undefined
+--line 221 of file bibliography.bib
+Warning--empty booktitle in pan14
+Warning--empty booktitle in pan13
+Warning--empty journal in Hinton:2009
+Warning--empty booktitle in mirex14
+You've used 33 entries,
+            1876 wiz_defined-function locations,
+            630 strings with 7920 characters,
+and the built_in function-call counts, 5571 in all, are:
+= -- 507
+> -- 250
+< -- 0
++ -- 100
+- -- 67
+* -- 329
+:= -- 878
+add.period$ -- 38
+call.type$ -- 33
+change.case$ -- 41
+chr.to.int$ -- 0
+cite$ -- 37
+duplicate$ -- 264
+empty$ -- 602
+format.name$ -- 67
+if$ -- 1337
+int.to.chr$ -- 0
+int.to.str$ -- 33
+missing$ -- 15
+newline$ -- 107
+num.names$ -- 33
+pop$ -- 153
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 135
+stack$ -- 0
+substring$ -- 126
+swap$ -- 47
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 4
+while$ -- 46
+width$ -- 35
+write$ -- 286
+(There were 13 warnings)

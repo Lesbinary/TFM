@@ -1,17 +1,5 @@
 %Leopoldo Pla, MUIARFID 2015, TFM (Roberto Paredes)
 
-
-%Actual result: 20 neurons, 1.25 learning rate, numFactors-7, 300
-%iterations and ths features
-%   -vamp:qm-vamp-plugins:qm-keydetector:mode
-%   -vamp:qm-vamp-plugins:qm-segmenter:segmentation
-%   -vamp:qm-vamp-plugins:qm-mfcc:means
-%or 15 neurons using number of perfect cadences of the tonality
-
-%155 error samples
-
-
-
 %OUTPUT='/home/leopoldo/tfm/scratch/';
 addpath(genpath('DeepLearnToolbox'))
 
