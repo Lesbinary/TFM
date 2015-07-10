@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>TFM - MIREX 2015 submission</title>
+		<title>Master's Thesis - MIREX 2015 submission</title>
 
-		<meta name="description" content="Trabajo de Fin de Grado - Grado en Ingeniería Informática">
+		<meta name="description" content="Trabajo de Fin de Máster - MUIARFID">
 		<meta name="author" content="Leopoldo Pla Sempere">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,101 +53,235 @@
 				</section>
 
 				<section>
-					<h2>Estructura de la <br>presentación</h2>
+					<h2>Presentation structure</h2>
 					<ul class="fragment roll-in">
-						<li>Introducción</li>
-						<li>Motivación</li>
-						<li>Objetivos</li>
-						<li>Descripción</li>
-						<li>Resultados</li>
-						<li>Conclusiones</li>
+						<li>Introduction</li>
+						<li>Implementation</li>
+						<li>Experiments</li>
+						<li>Conclusions</li>
 					</ul>
 				</section>
 				<section>
 					<section>
-						<h2>Introducción</h2>
-						<div align="left" class="fragment">El asistente de composición de música dodecafónica es una herramienta que</div>
+						<h2>Introduction</h2>
+						<div align="left" class="fragment">Music Information Retrieval Evaluation eXchange (MIREX)</div>
 						<ul>
-							<li class="fragment roll-in">ayuda al compositor a obtener ideas, fragmentos, frases o voces completas para la composición de una obra dodecafónica.</li>
-							<li class="fragment roll-in">se basa en restricciones delimitadas por el compositor.</li>
+							<li class="fragment roll-in">organized by The International Music Information Retrieval Systems Evaluation Laboratory (IMIRSEL)</li>
+							<li class="fragment roll-in">hold as part of the 16th International Conference on Music Information Retrieval, ISMIR 2015 (Malaga)</li>
+							<ul>
+								<li class="fragment roll-in">Audio Classification (Train/Test) Tasks</li>
+								<ul>
+									<li class="fragment roll-in">Audio Classical Composer Identification</li>
+								</ul>
+							</ul>
 						</ul>
 						<aside class="notes">
-							La motivación de realizar este proyecto es unir los conocimientos del grado medio y el GII e indagar en la composición por ordenador y la relación de la música dodecafónica con la álgebra lineal.
-
-							El objetivo principal es mejorar el proceso de composición de música dodecafónica con una herramienta inédita así como retroalimentar al programa proponiendo más restricciones o formas compositivas.
+							La motivación de realizar este proyecto es unir los conocimientos del grado medio y el máster e indagar en el uso de técnicas de análisis musical para discriminar compositores
 						</aside>
 					</section>
 					<section>
-						<h2>Música dodecafónica</h2>
+						<h2>State of the art</h2>
 						<p>
 							<ul>
-								<li class="fragment">Iniciada por Arnold Schoenberg entre 1921 y 1923</li>
-								<li class="fragment">Tipo de serialismo (no predominan unas notas sobre otras)</li>
-								<li class="fragment">Se basa una serie con las doce notas de la escala (con cierto orden)</li>
-								<li class="fragment">Se obtiene una matriz de series derivadas de la serie original</li>
+								<li class="fragment">Previous submissions of composer identification in MIREX</li>
+								<ul>
+									<li class="fragment">Classifiers: SVN, CNN, RBM, GMM, kNN, MLP</li>
+									<li class="fragment">Features: MFCC, DFB, OSC, SP, DSP, STFT, LFP, CP</li>
+								</ul>
 							</ul>
 						</p>
 
 						<aside class="notes">
-							Schoenberg derivó del atonalismo al dodecafonismo porque no podía componer obras extensas con coherencia sin un texto en el que apoyarse.
+							Convolutional Neural Networks
+							(CNN)[8] and multiclass Support Vector Machines (SVM)[9][10][11][12], also
+							using PCA[10] and a SVM ranker[9] as a dimensional reduction algorithm.
+							Previous years there were used Restricted Boltzmann Machines (RBM)[13],
+							Gaussian Mixture Models (GMM)[14], k-Nearest Neighbours classifier (kNN)
+							and Multi Layer Perceptron (MLP)
+
+							mel-frequency cepstral coefficients (MFCC)[9][12][14], decorrelated
+							filter banks (DFB)[9][12] and octave-based spectral contrast (OSC)[9][12],
+							visual features as spectograms[9], spectral patterns (SP)[16], Delta spectral
+							patterns (DSP)[16] and Short Time Fourier Transform (STFT)[8][10], and
+							also rhythmic patterns as Logarithmic Fluctuation Patterns (LFP)[16] and
+							Correlation Patterns (CP)[16]
+
 						</aside>
 					</section>
 
 					<section>
-						<h3>Matriz dodecafónica</h3>
-						<img src="img/12_tone_matrix.jpg" alt="Matrix">
+						<h3>Machine Learning</h3>
+						<img src="img/machinelearning.png" alt="ML">
 
 						<aside class="notes">
-							Explicación de cada una de las series obtenidas
+						  Machine learning process
 						</aside>
 					</section>
 					<section>
-						<h3>Ejemplo de obra dodecafónica</h3>
-						<img src="img/exampleTwelveToneScore.png" alt="ScoreExample">
+						<h2>Neural Network</h3>
+						<img src="img/neuralNet.png" alt="NN" style="width: 70%; height: 70%">
+
+						<aside class="notes">
+							An artificial neural network is a class of classification algorithm that be-
+							longs to the connectionist models and it is trained to solve problems by
+							learning the features of the problem through a set of already classified data,
+							or labeled training set (supervised learning).
+						</aside>
+					</section>
+					<section>
+						<h2>Deep Belief Network</h3>
+						<img src="img/dbn_model.png" alt="DBN" style="width: 70%; height: 70%">
+
+						<aside class="notes">
+							The Deep Belief Network is a type of Deep Learning algorithms, which is
+							based on a set of stacked Restricted Boltzmann Machines undirectly connec-
+							ted and trained with unsupervised learning, usually the Contrastive Diver-
+							gence algorithm. These RBMs try to reconstruct the data layer by layer.
+							1.4 The resultant DBN can be unfolded into a Multi Layer Perceptron (feed
+							forward network) with initialized values and after it can be "fine-tuned" with
+							labeled data using backpropagation.
+						</aside>
+					</section>
+					<section>
+						<h3>Musical Analysis</h3>
+						<p>The process and the academic discipline which studies the musical works from the pattern aspect, the internal structure, composition techniques and interpretative aspects is the musical analysis.</p>
+						<ul>
+							<li class="fragment">Structure</li>
+							<li class="fragment">Melody</li>
+							<li class="fragment">Texture</li>
+							<li class="fragment">Harmony</li>
+							<li class="fragment">Tone</li>
+							<li class="fragment">Dynamics</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Example of written musical analysis</h3>
+						<img src="img/musical_analysis.jpg" alt="AnalysisExample" style="width: 55%; height: 55%">
 					</section>
 				</section>
 
 				<section>
-					<h2>Diagrama del flujo de trabajo</h2>
-					<img src="img/software_diagram.png" alt="SoftwareDiagram">
+					<h2>Workflow diagram</h2>
+					<img src="img/diagram.png" alt="SoftwareDiagram" style="width: 30%; height: 30%">
 				</section>
 				<section data-background="#4d7e65" data-background-transition="slide">
-					<h2>Demostración del funcionamiento</h2>
+					<h2>Features</h2>
+					<ul>
+						<li class="fragment">Key Mode</li>
+						<ul><li class="fragment">Vamp Plugin</li></ul>
+						<li class="fragment">Segmentation</li>
+						<ul><li class="fragment">Vamp Plugin</li></ul>
+						<li class="fragment">Tonality</li>
+						<ul><li class="fragment"><img src="img/formula.png" alt="Formula" style="width: 85%; height: 85%"></li></ul>
+						<li class="fragment">Harmonic analysis</li>
+						<li class="fragment">MFCC Means</li>
+						<ul><li class="fragment">Vamp Plugin</li></ul>
+					</ul>
+					<aside class="notes">
+						The main work has been done in these following high level features based
+						on the key of the sample and the detected chords. First of all, I obtain
+						through the key strength Vamp plugin2.2 the value between -1 and 1 of
+						every key (from C, C#, and so on, to B minor and major) of every window
+						of 1 chroma frame. Then, I select the most strong key of every window (in
+						the figure, the most red value of a column) obtaining a vector of keys.
 
-					<iframe width="853" height="480" src="http://www.youtube.com/embed/UbdCKUhWGyc" frameborder="0" allowfullscreen></iframe>
+						From this keys vector, I created a script in Python 2.4 that obtains the
+						key of the sample using a weighted sum of the number of perfect cadences
+						found at the key strength using 1 chroma and the values of key strength
+						plugin using 10 chroma. In the mathematical notation, keys are sorted by 12
+						Major tones and then 12 minor tones, the ponderation in the implementation
+						is 12 after some tests and the w is the 1 and 10 chroma window through the
+						algorithm iterates. This obtained key is used as a feature.
+					</aside>
+				</section>
+				<section data-background="#4d7e65" data-background-transition="slide">
+					<h2>Classifier</h2>
+					<ul>
+						<li class="fragment">Multi Layer Perceptron (MLP)</li>
+						<li class="fragment">Deep Belief Network (DBN)</li>
+						<ul>
+							<li class="fragment">z-score normalization</li>
+							<li class="fragment">Normalization between 0 and 1</li>
+							<li class="fragment">44 neurons at hidden layer</li>
+							<li class="fragment">300 epochs</li>
+							<li class="fragment">Dynamic setting of batch size</li>
+							<li class="fragment">Sigmoid activation function</li>
+							<li class="fragment">Softmax output function</li>
+						</ul>
+					</ul>
+					<aside class="notes">
+						The main work has been done in these following high level features based
+						on the key of the sample and the detected chords. First of all, I obtain
+						through the key strength Vamp plugin2.2 the value between -1 and 1 of
+						every key (from C, C#, and so on, to B minor and major) of every window
+						of 1 chroma frame. Then, I select the most strong key of every window (in
+						the figure, the most red value of a column) obtaining a vector of keys.
+
+						From this keys vector, I created a script in Python 2.4 that obtains the
+						key of the sample using a weighted sum of the number of perfect cadences
+						found at the key strength using 1 chroma and the values of key strength
+						plugin using 10 chroma. In the mathematical notation, keys are sorted by 12
+						Major tones and then 12 minor tones, the ponderation in the implementation
+						is 12 after some tests and the w is the 1 and 10 chroma window through the
+						algorithm iterates. This obtained key is used as a feature.
+					</aside>
 				</section>
 				<section>
 					<section>
-						<h2>Resultados</h2>
+						<h2>Results</h2>
 					</section>
 
 					<section>
-						<h3>Ejemplo de obra formal</h3>
-						<iframe width="640" height="40" src="http://www.youtube.com/embed/nmMA77gy2hg" frameborder="0" allowfullscreen></iframe>
-
-						<a href="http://imslp.org/wiki/String_Trio,_Op.20_%28Webern,_Anton%29"><img src="img/webern.png" width="60%" height="60%" alt="Webern"></a>
-
+						<h3>Dataset</h3>
+						<ul>
+							<li class="fragment">11 "classical" composers</li>
+							<ul>
+								<li class="fragment">Bach</li>
+								<li class="fragment">Beethoven</li>
+								<li class="fragment">Brahms</li>
+								<li class="fragment">Chopin</li>
+								<li class="fragment">Dvorak</li>
+								<li class="fragment">Handel</li>
+								<li class="fragment">Haydn</li>
+								<li class="fragment">Mendelssohn</li>
+								<li class="fragment">Mozart</li>
+								<li class="fragment">Schubert</li>
+								<li class="fragment">Vivaldi</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h3>Dataset</h3>
+						<ul>
+							<li class="fragment">Homemade database</li>
+							<ul>
+								<li class="fragment">From own music library</li>
+								<li class="fragment">1100 audio cuts (100 files per composer)</li>
+								<li class="fragment">44 neurons at hidden layer</li>
+								<li class="fragment">300 epochs</li>
+								<li class="fragment">Dynamic setting of batch size</li>
+								<li class="fragment">Sigmoid activation function</li>
+								<li class="fragment">Softmax output function</li>
+							</ul>
+						</ul>
 					</section>
 
 					<section>
-						<h3>Obra compuesta utilizando el asistente</h3>
-						<iframe width="440" height="240" src="http://www.youtube.com/embed/GdllUSBdCOs" frameborder="0" allowfullscreen></iframe>
-
-						<img src="img/composicion.jpg" alt="Composicion">
+						<h3>Results</h3>
+						<img src="img/results.png" alt="Results">
 					</section>
 				</section>
 
 				<section>
 					<section data-background="#F4A460" data-background-transition="slide">
-						<h3>Conclusiones</h3>
+						<h3>Conclusions</h3>
 						<ul>
-							<li>Se obtienen obras muy similares a una compuesta íntegramente por un compositor</li>
-							<li>Los objetivos se cumplen, ya que los fragmentos musicales obtenidos son útiles</li>
+							<li>A different approach of a music audio classification problem from the music theory point of view using a structural analysis of the musical work</li>
+							<li>The propagated error of the feature extraction is crucial for this theory to work</li>
 							<li>El desarrollo se ha llevado de forma incremental</li>
 						</ul>
 
 						<aside class="notes">
-							Modelo incremental, especificación del proyecto y se ha ido modificando el conjunto de características según avanzamos en hitos.
 						</aside>
 					</section>
 					<section data-background="#F4A460" data-background-transition="slide">
@@ -155,21 +289,22 @@
 						<ul>
 							<li>Líneas futuras de desarrollo</li>
 							<ul>
-									<li class="fragment">Programación de formas barrocas y clásicas (contrapuntos por ampliación, por reducción, cánones...)</li>
-									<li class="fragment">Desarrollo de las series entre voces <img src="img/Schoenberg_-_Wind_Quintet_opening.png" alt="SchoenbergQuintet"></li>
-									<li class="fragment">Mejorar la compatibilidad con QT5</li>
+									<li class="fragment">Melody or bass patterns (using implementations from the state of the art of MIREX which are close to 90% of accuracy)</li>
+									<li class="fragment">Improve the segmentation feature using history ("n-gram segmentation")</li>
+									<li class="fragment">More accurate tonality detection to improve the harmony analysis</li>
+									<li class="fragment">Or use different machine learning algorithms like Convolutional Neural Nets</li>
+									<li class="fragment">Investigate the viability of profiling the composer of the classical works</li>
 							</ul>
 						</ul>
 
 						<aside class="notes">
-							Modelo incremental, especificación del proyecto y se ha ido modificando el conjunto de características según avanzamos en hitos.
 						</aside>
 					</section>
 				</section>
 
 				<section>
-					<h3>Repositorio para código, memoria y presentación</h3>
-					<p><a href="https://github.com/Lesbinary/tfg/">github.com/Lesbinary/TFM/</a></p>
+					<h3>Code, report and presentation</h3>
+					<p><a href="https://github.com/Lesbinary/tfm/">github.com/Lesbinary/TFM/</a></p>
 				</section>
 
 			</div>
