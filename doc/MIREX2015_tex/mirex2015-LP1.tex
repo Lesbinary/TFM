@@ -69,7 +69,7 @@ This is also feature from a Vamp Plugin from Queen Mary which divides the audio 
 \subsection{Tonality}\label{subsec:chord_windows}
 The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window (in the figure, the most red value of a column) obtaining a vector of keys.
 
-From this keys vector, I created a script in Python \ref{fig:keyFormula} that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
+From this keys vector, I created a script in Python that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
 
 \begin{figure}
 \[ argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * (1-w_{(k+7)\%12})*pond \]

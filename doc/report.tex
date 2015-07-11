@@ -350,7 +350,7 @@ The basic objectives of the musical analysis are the recognition of different el
 \item Dynamic
 \end{itemize}
 
-Also, is objective of study the existent relationships inside the previous elements and between them to finally obtain conclusions about the relationships, the compositor ideas and why the composer structured the elements in that way.
+Also, the existent relationships inside the previous elements and between them are objective of study to finally obtain conclusions about the relationships, the compositor ideas and why the composer structured the elements in that way.
 
 Usually, the musical analysis is performed over a score because is easier to identify these mentioned elements, but also listening to some parts of the work is complementary.
 
@@ -361,7 +361,7 @@ The musical analysis includes different subanalysis or techniques that are used 
 \item Harmonic analysis: indicate the harmonic functions on the same score including figured bass and modulations if harmony is tonal.
 \end{itemize}
 
-Although the discretization is more intuitive to perform, the harmonic analysis implies the knowledge of the harmonies in different scales\ref{fig:scales}. Also, the knowledge of the most famous cadences is very important. These are some of them:
+Although the discretization is more intuitive to perform, the harmonic analysis implies the knowledge of the harmonies in different scales \ref{fig:scales}. Also, the knowledge of the most famous cadences is very important. These are some of them:
 
 \begin{itemize}
 \item Perfect Authentic Cadence (PAC): V to I (chords in root position)
@@ -379,7 +379,7 @@ And there are more cadences and larger common progressions, like "I IV I IV" or 
 \caption{Figured bass in different scales of C} \label{fig:scales}
 \end{figure}
 
-As an illustrative example of a music analysis, looking at this Beethoven Minuet\ref{fig:music_analysis} we can see the letters above the staff that denotes the different sections of the score. We obtained "a", "b", "c" and again "b". Also, we made the harmonic analysis ("I", "V", "IV" and the other variants, inversions and elements below the staff) focusing on cadences like Half Cadence (HC), Perfect Authentic Cadence (PAC) or Imperfect Authentic Cadence (IAC). There are more elements like passing tones (PT) and subjective descriptions at the margins.
+As an illustrative example of a music analysis, looking at this Beethoven Minuet \ref{fig:music_analysis} we can see the letters above the staff that denotes the different sections of the score. We obtained "a", "b", "c" and again "b". Also, we made the harmonic analysis ("I", "V", "IV" and the other variants, inversions and elements below the staff) focusing on cadences like Half Cadence (HC), Perfect Authentic Cadence (PAC) or Imperfect Authentic Cadence (IAC). There are more elements like passing tones (PT) and subjective descriptions at the margins.
 
 But the interesting idea here is that the previous features, like in the texts, help to discriminate the authors.
 
@@ -464,7 +464,7 @@ This is also feature from a Vamp Plugin from Queen Mary which divides the channe
 \end{figure}
 
 \subsection{Tonality}\label{subsec:chord_windows}
-The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin\ref{fig:keystrength} the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window (in the figure, the most red value of a column) obtaining a vector of keys.
+The main work has been done in these following high level features based on the key of the sample and the detected chords. First of all, I obtain through the key strength Vamp plugin  \ref{fig:keystrength} the value between -1 and 1 of every key (from C, C\#, and so on, to B minor and major) of every window of 1 chroma frame. Then, I select the most strong key of every window (in the figure, the most red value of a column) obtaining a vector of keys.
 
 From this keys vector, I created a script in Python \ref{fig:keyFormula} that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
 
