@@ -105,7 +105,7 @@ Laura}
 
 This work is the result of interest in neural networks and classical music, knowledge that I wanted to combine after finishing the studies of the IARFID master and professional music degree. I wanted to contribute to an engineering task from the musicological point of view, so, after working on PAN 2015 author profiling task and learning about sentiment analysis, I concluded that I could use similar techniques in MIREX classical composer identification task.
 
-MIREX is the Music Information Retrieval Evaluation eXchange organized by the University of Illinois at Urbana-Champaign (UIUC) in which every year they prepare several Music Information Retrieval tasks held as part of the International Conference on Music Information Retrieval (ISMIR), which this year is celebrated in Malaga. In this exchange exist the Audio Classification (Train/Test) Tasks, and more specifically the Audio Classical Composer Identification, which is perfect for investigating the use of machine learning and music analysis on classical music.
+MIREX is the Music Information Retrieval Evaluation eXchange organized by the University of Illinois at Urbana-Champaign (UIUC) in which every year they prepare several Music Information Retrieval tasks held as part of the International Conference on Music Information Retrieval (ISMIR), which this year is celebrated in Malaga. In this exchange exist the audio classification (train/test) tasks, and more specifically the audio classical composer identification, which is perfect for investigating the use of machine learning and music analysis on classical music.
 
 Machine learning is a field of the artificial intelligence which evolves from the study of pattern recognition and include the study of algorithms that can learn and make decisions over data. Specifically, a neural network is a machine learning algorithm that is inspired by the biological neural networks.
 
@@ -149,7 +149,7 @@ Then, in this thesis we will focus on techniques of musical analysis, compositio
 
 This thesis is distributed in four sections:
 \begin{itemize}
-\item Introduction, in which we establish the state of the art from the MIREX contest and some theoretical concepts about the elements that are involved on the idea of the thesis, as Artificial Neural Networks and Musical Analysis.
+\item Introduction, in which we establish the state of the art from the MIREX contest and some theoretical concepts about the elements that are involved on the idea of the thesis, as artificial neural networks and musical analysis.
 \item Implementation, where I explain the used technologies and the different features that I look for in a sample to identify the composer explaining why I chose them and how they work.
 \item Experiments, which explains and shows the tests with their results under a homemade audio dataset.
 \item Conclusions, summarizing and expanding the main idea for improvements and useful inferences of the process and results.
@@ -239,7 +239,7 @@ From the features point of view, the most used features are timbral features as 
 \caption{Normalised Classification Accuracies of MIREX 2014.\cite{resultsMirex14}} \label{fig:MIREX14results}
 \end{table}
 
-Note that most of the submissions for Composer Classification task were also submitted for all Audio Classification (Train/Test) Tasks, so they are relatively generic audio classifiers algorithms for music genres, moods and composers.
+Note that most of the submissions for composer classification task were also submitted for all audio classification tasks, so they are relatively generic audio classifiers algorithms for music genres, moods and composers.
 
 Also note that none of the submissions is based on any elements of musical analysis.
 
@@ -278,7 +278,7 @@ An ANN is typically defined by three types of parameters:
 \caption{General structure of a multilayer perceptron\cite{rparedesNN}} \label{fig:neuralnet}
 \end{figure}
 
-Also, this kind of topology is easily paralelizable and it has been implemented in so many frameworks that use several CPU and GPU cores (CUDA or OpenCL, for example).
+Also, this kind of topology is easily parallelizable and it has been implemented in so many frameworks that use several CPU and GPU cores (CUDA or OpenCL, for example).
 
 The origin of the artificial neural networks can be stablished at the first models defined with mathematical notation by McCullock and Pitt in 1943, but the first successful results are obtained in 1959 when the perceptron is created by Rosenblat, which later in 1975 is improved by Paul Werbos adding the backpropagation algorithm.
 
@@ -315,7 +315,7 @@ The Deep Belief Network is a type of Deep Learning algorithms, which is based on
 
 In the Deep Belief Network
 \begin{quote}
-\em [...] the top two layers have undirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
+\em [...] the top two layers have misdirected, symmetric connections between them and form an associative memory. The lower layers receive top-down, directed connections from the layer above. The states of the units in the lowest layer represent a data vector.
 
 The two most significant properties of deep belief nets are:
 
