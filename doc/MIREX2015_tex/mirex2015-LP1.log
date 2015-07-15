@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.29)  11 JUL 2015 17:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.29)  15 JUL 2015 20:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -506,7 +506,14 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+Overfull \hbox (7.60466pt too wide) detected at line 75
+\OML/cmm/m/it/10 argmax[] [] w[] [] w[] \OMS/cmsy/m/n/10 ^^C \OT1/cmr/m/n/10 ((
+1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )[]) \OMS/cmsy/m/n/10 
+^^C \OML/cmm/m/it/10 pond
+ []
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 

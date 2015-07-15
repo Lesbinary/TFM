@@ -470,7 +470,7 @@ From this keys vector, I created a script in Python \ref{fig:keyFormula} that ob
 
 \begin{figure}
 
-\[ Tone(Keys,pond) = argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * (1-w_{(k+7)\%12})*pond \]
+\[ Tone(Keys,pond) = argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * ((1-w)_{(k+7)\%12})*pond \]
 \caption{Formula to obtain a ponderated key using perfect cadences and key strength} \label{fig:keyFormula}
 \end{figure}
 
