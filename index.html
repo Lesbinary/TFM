@@ -64,9 +64,19 @@
 				<section>
 					<section>
 						<h2>Introduction</h2>
+					</section>
+					<section>
+					  <h2>Main idea</h2>
+						<ul>
+							<li class="fragment roll-in">Many Music Information Retrieval fields use timbral and chroma features of the audio signal</li>
+						  <li class="fragment roll-in">In computational linguistics authorship attribution is usual to use features from the text representation</li>
+							<li class="fragment roll-in">This project is based on the idea of musical structure analysis of classical audio files to identificate composers.</li>
+					</section>
+					<section>
+						<h3>MIREX</h3>
 						<div align="left" class="fragment">Music Information Retrieval Evaluation eXchange (MIREX)</div>
 						<ul>
-							<li class="fragment roll-in">organized by The International Music Information Retrieval Systems Evaluation Laboratory (IMIRSEL)</li>
+							<li class="fragment roll-in">organized by The International Music Information Retrieval Systems Evaluation Laboratory (IMIRSEL) at the University of Illinois at Urbana-Champaign (UIUC)</li>
 							<li class="fragment roll-in">hold as part of the 16th International Conference on Music Information Retrieval, ISMIR 2015 (Malaga)</li>
 							<ul>
 								<li class="fragment roll-in">Audio Classification (Train/Test) Tasks</li>
@@ -78,34 +88,13 @@
 						<aside class="notes">
 						</aside>
 					</section>
+
 					<section>
-						<h2>State of the art</h2>
-						<p>
-							<ul>
-								<li class="fragment">Previous submissions of composer identification in MIREX</li>
-								<ul>
-									<li class="fragment">Classifiers: SVM, CNN, RBM, GMM, kNN, MLP</li>
-									<li class="fragment">Features: MFCC, DFB, OSC, SP, DSP, STFT, LFP, CP</li>
-								</ul>
-							</ul>
-						</p>
-
-						<aside class="notes">
-							Convolutional Neural Networks
-							(CNN)[8] and multiclass Support Vector Machines (SVM)[9][10][11][12], also
-							using PCA[10] and a SVM ranker[9] as a dimensional reduction algorithm.
-							Previous years there were used Restricted Boltzmann Machines (RBM)[13],
-							Gaussian Mixture Models (GMM)[14], k-Nearest Neighbours classifier (kNN)
-							and Multi Layer Perceptron (MLP)
-
-							mel-frequency cepstral coefficients (MFCC)[9][12][14], decorrelated
-							filter banks (DFB)[9][12] and octave-based spectral contrast (OSC)[9][12],
-							visual features as spectograms[9], spectral patterns (SP)[16], Delta spectral
-							patterns (DSP)[16] and Short Time Fourier Transform (STFT)[8][10], and
-							also rhythmic patterns as Logarithmic Fluctuation Patterns (LFP)[16] and
-							Correlation Patterns (CP)[16]
-
-						</aside>
+						<h3>Theoretical framework</h3>
+						<ul>
+							<li class="fragment roll-in">Machine Learning</li>
+						  <li class="fragment roll-in">Music Theory</li>
+						</ul>
 					</section>
 
 					<section>
@@ -113,7 +102,8 @@
 						<img src="img/machinelearning.png" alt="ML">
 
 						<aside class="notes">
-						  Machine learning process
+							Hablamos del machine learning (y más concretamente del pattern recognition) como la técnica por la que los sistemas de computación son capaces de reconocer un entorno adquiriendo información a través de sensores
+							En base a los paradigmas de clasificación, reconocerlos implica clasificarlos en clases dentro de un conjunto C con la mínima probabilidad de error.
 						</aside>
 					</section>
 					<section>
@@ -121,10 +111,7 @@
 						<img src="img/neuralNet.png" alt="NN" style="width: 70%; height: 70%">
 
 						<aside class="notes">
-							An artificial neural network is a class of classification algorithm that be-
-							longs to the connectionist models and it is trained to solve problems by
-							learning the features of the problem through a set of already classified data,
-							or labeled training set (supervised learning).
+							Las redes son un tipo de algoritmo de clasificación que pertenece a los modelos conectionistas y son entrenadas para resolver problemas aprendiendo las características del problema utilizando información clasificada (superviced learning)
 						</aside>
 					</section>
 					<section>
@@ -143,113 +130,142 @@
 					</section>
 					<section>
 						<h3>Musical Analysis</h3>
-						<p>The process and the academic discipline which studies the musical works from the pattern aspect, the internal structure, composition techniques and interpretative aspects.</p>
-						<ul>
-							<li class="fragment">Structure</li>
-							<li class="fragment">Melody</li>
-							<li class="fragment">Texture</li>
-							<li class="fragment">Harmony</li>
-							<li class="fragment">Tone</li>
-							<li class="fragment">Dynamics</li>
+						<ul class="fragment roll-in">
+						<li>The process and the academic discipline which studies the musical works from the pattern aspect, the internal structure, composition techniques and interpretative aspects.</li>
+						</ul>
+						<ul class="fragment roll-in">
+							<li>Structure</li>
+							<li>Melody</li>
+							<li>Texture</li>
+							<li>Harmony</li>
+							<li>Tone</li>
+							<li>Dynamics</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Example of written musical analysis</h3>
 						<img src="img/musical_analysis.jpg" alt="AnalysisExample" style="width: 55%; height: 55%">
 					</section>
-				</section>
 
-				<section>
-					<h2>Workflow diagram</h2>
-					<img src="img/diagram.png" alt="SoftwareDiagram" style="width: 30%; height: 30%">
-				</section>
-				<section data-background="#4d7e65" data-background-transition="slide">
-					<h2>Features</h2>
-					<ul>
-						<li class="fragment">Key Mode</li>
-						<ul><li class="fragment">Vamp Plugin</li></ul>
-						<li class="fragment">Segmentation</li>
-						<ul><li class="fragment">Vamp Plugin</li></ul>
-						<li class="fragment">Tonality</li>
-						<ul><li class="fragment"><img src="img/formula.png" alt="Formula" style="width: 85%; height: 85%"></li></ul>
-						<li class="fragment">Harmonic analysis</li>
-						<li class="fragment">MFCC Means</li>
-						<ul><li class="fragment">Vamp Plugin</li></ul>
-					</ul>
-					<aside class="notes">
-						The main work has been done in these following high level features based
-						on the key of the sample and the detected chords. First of all, I obtain
-						through the key strength Vamp plugin2.2 the value between -1 and 1 of
-						every key (from C, C#, and so on, to B minor and major) of every window
-						of 1 chroma frame. Then, I select the most strong key of every window (in
-						the figure, the most red value of a column) obtaining a vector of keys.
-
-						From this keys vector, I created a script in Python 2.4 that obtains the
-						key of the sample using a weighted sum of the number of perfect cadences
-						found at the key strength using 1 chroma and the values of key strength
-						plugin using 10 chroma. In the mathematical notation, keys are sorted by 12
-						Major tones and then 12 minor tones, the ponderation in the implementation
-						is 12 after some tests and the w is the 1 and 10 chroma window through the
-						algorithm iterates. This obtained key is used as a feature.
-					</aside>
-				</section>
-				<section data-background="#4d7e65" data-background-transition="slide">
-					<h2>Classifier</h2>
-					<ul>
-						<li class="fragment">Multi Layer Perceptron (MLP)</li>
-						<li class="fragment">Deep Belief Network (DBN)</li>
-						<ul>
-							<li class="fragment">z-score normalization</li>
-							<li class="fragment">Normalization between 0 and 1</li>
-							<li class="fragment">44 neurons at hidden layer</li>
-							<li class="fragment">300 epochs</li>
-							<li class="fragment">Dynamic setting of batch size</li>
-							<li class="fragment">Sigmoid activation function</li>
-							<li class="fragment">Softmax output function</li>
-						</ul>
-					</ul>
-					<aside class="notes">
-						The main work has been done in these following high level features based
-						on the key of the sample and the detected chords. First of all, I obtain
-						through the key strength Vamp plugin2.2 the value between -1 and 1 of
-						every key (from C, C#, and so on, to B minor and major) of every window
-						of 1 chroma frame. Then, I select the most strong key of every window (in
-						the figure, the most red value of a column) obtaining a vector of keys.
-
-						From this keys vector, I created a script in Python 2.4 that obtains the
-						key of the sample using a weighted sum of the number of perfect cadences
-						found at the key strength using 1 chroma and the values of key strength
-						plugin using 10 chroma. In the mathematical notation, keys are sorted by 12
-						Major tones and then 12 minor tones, the ponderation in the implementation
-						is 12 after some tests and the w is the 1 and 10 chroma window through the
-						algorithm iterates. This obtained key is used as a feature.
-					</aside>
-				</section>
-				<section>
 					<section>
+						<h2>State of the art</h2>
+						<p>
+							<ul>
+								<li class="fragment">Previous submissions of composer identification in MIREX</li>
+								<ul>
+									<li class="fragment"> Classifiers:</li>
+									<ul>
+									  <li class="fragment">Support Vector Machines</li>
+										<li class="fragment">Convolutional Neural Networks</li>
+										<li class="fragment">Restricted Boltzmann Machines</li>
+										<li class="fragment">Gaussian Mixture Models</li>
+										<li class="fragment">k-Nearest Neighbours</li>
+										<li class="fragment">Multi Layer Perceptron</li>
+								  </ul>
+								</ul>
+								<ul>
+									<li class="fragment"> Features:</li>
+									<ul>
+										<li class="fragment">Mel-Frequency Cepstral Coefficients</li>
+										<li class="fragment">Decorrelated Filter Banks</li>
+										<li class="fragment">Octave-based Spectral Contrast</li>
+										<li class="fragment">Spectral Patterns</li>
+										<li class="fragment">Short Time Fourier Transform</li>
+										<li class="fragment">Logarithmic Fluctuation Patterns</li>
+								  </ul>
+								</ul>
+							</ul>
+						</p>
+
+
+						<aside class="notes">
+
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section data-background="#8ED5BA" data-background-transition="slide">
+					<h2>Implementation</h2>
+					</section>
+					<section data-background="#8ED5BA" data-background-transition="slide">
+						<h2>Workflow diagram</h3>
+						<img src="img/diagram.png" alt="SoftwareDiagram" style="width: 30%; height: 30%">
+					</section>
+					<section data-background="#8ED5BA" data-background-transition="slide">
+						<h2>Features</h3>
+						<ul>
+							<li class="fragment">Key Mode</li>
+							<ul><li class="fragment">Queen Mary Vamp Plugin</li></ul>
+							<li class="fragment">Segmentation</li>
+							<ul><li class="fragment">Queen Mary Vamp Plugin</li></ul>
+							<li class="fragment">Tonality</li>
+							<ul><li class="fragment"><img src="img/formula.png" alt="Formula" style="width: 85%; height: 85%"></li></ul>
+							<li class="fragment">Harmonic analysis</li>
+							<li class="fragment">MFCC Means</li>
+							<ul><li class="fragment">Queen Mary Vamp Plugin</li></ul>
+						</ul>
+						<aside class="notes">
+							The main work has been done in these following high level features based
+							on the key of the sample and the detected chords. First of all, I obtain
+							through the key strength Vamp plugin the value between -1 and 1 of
+							every key (from C, C#, and so on, to B minor and major) of every window
+							of 1 chroma frame. Then, I select the most strong key of every window (in
+							the figure, the most red value of a column) obtaining a vector of keys.
+
+							From this keys vector, I created a script in Python 2.4 that obtains the
+							key of the sample using a weighted sum of the number of perfect cadences
+							found at the key strength using 1 chroma and the values of key strength
+							plugin using 10 chroma. In the mathematical notation, keys are sorted by 12
+							Major tones and then 12 minor tones, the ponderation in the implementation
+							is 12 after some tests and the w is the 1 and 10 chroma window through the
+							algorithm iterates. This obtained key is used as a feature.
+						</aside>
+					</section>
+					<section data-background="#8ED5BA" data-background-transition="slide">
+						<h2>Classifier</h3>
+						<ul>
+							<li class="fragment roll-in">Multi Layer Perceptron (MLP)</li>
+							<li class="fragment roll-in">Deep Belief Network (DBN)</li>
+							<ul>
+								<li class="fragment roll-in">z-score normalization</li>
+								<li class="fragment roll-in">Normalization between 0 and 1</li>
+								<li class="fragment roll-in">44 neurons at hidden layer</li>
+								<li class="fragment roll-in">300 epochs</li>
+								<li class="fragment roll-in">Dynamic setting of batch size</li>
+								<li class="fragment roll-in">Sigmoid activation function</li>
+								<li class="fragment roll-in">Softmax output function</li>
+							</ul>
+						</ul>
+						<aside class="notes">
+
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section data-background="#E1D9FC" data-background-transition="slide">
 						<h2>Results</h2>
 					</section>
-
-					<section>
+					<section data-background="#E1D9FC" data-background-transition="slide">
 						<h3>Dataset</h3>
 						<ul>
 							<li class="fragment">11 "classical" composers</li>
-							<ul>
-								<li class="fragment">Bach</li>
-								<li class="fragment">Beethoven</li>
-								<li class="fragment">Brahms</li>
-								<li class="fragment">Chopin</li>
-								<li class="fragment">Dvorak</li>
-								<li class="fragment">Handel</li>
-								<li class="fragment">Haydn</li>
-								<li class="fragment">Mendelssohn</li>
-								<li class="fragment">Mozart</li>
-								<li class="fragment">Schubert</li>
-								<li class="fragment">Vivaldi</li>
+							<ul class="fragment roll-in">
+								<li>Bach</li>
+								<li>Beethoven</li>
+								<li>Brahms</li>
+								<li>Chopin</li>
+								<li>Dvorak</li>
+								<li>Handel</li>
+								<li>Haydn</li>
+								<li>Mendelssohn</li>
+								<li>Mozart</li>
+								<li>Schubert</li>
+								<li>Vivaldi</li>
 							</ul>
 						</ul>
 					</section>
-					<section>
+					<section data-background="#E1D9FC" data-background-transition="slide">
 						<h3>Dataset</h3>
 						<ul>
 							<li class="fragment">Homemade database</li>
@@ -261,28 +277,26 @@
 						</ul>
 					</section>
 
-					<section>
-						<h3>Results</h3>
+					<section data-background="#E1D9FC" data-background-transition="slide">
+						<h3>Accuracy Results</h3>
 						<img src="img/results.png" alt="Results">
 					</section>
 				</section>
 
 				<section>
-					<section data-background="#F4A460" data-background-transition="slide">
-						<h3>Conclusions</h3>
+					<section data-background="#FFC04C" data-background-transition="slide">
+						<h3>Conclusions</h2>
 						<ul>
-							<li>A different approach of a music audio classification problem from the music theory point of view using a structural analysis of the musical work</li>
-							<li>The propagated error of the feature extraction is crucial for this theory to work</li>
-							<li>Comparing with the overall results of MIREX 2014 1.1, the best result is comparable to BK4</li>
+							<li class="fragment roll-in">A different approach of a music audio classification problem from the music theory point of view using a structural analysis of the musical work</li>
+							<li class="fragment roll-in">The propagated error of the feature extraction is crucial for this theory to work</li>
+							<li class="fragment roll-in">Comparing with the overall results of MIREX 2014, the best result is comparable to BK4</li>
 						</ul>
 
 						<aside class="notes">
 						</aside>
 					</section>
-					<section data-background="#F4A460" data-background-transition="slide">
-						<h3>Conclusions</h3>
-						<ul>
-							<li>Future work</li>
+					<section data-background="#FFC04C" data-background-transition="slide">
+						<h3>Future work</h3>
 							<ul>
 									<li class="fragment">Melody or bass patterns (using implementations from the state of the art of MIREX which are close to 90% of accuracy)</li>
 									<li class="fragment">Improve the segmentation feature using history ("n-gram segmentation")</li>
@@ -290,15 +304,14 @@
 									<li class="fragment">Or use different machine learning algorithms like Convolutional Neural Nets</li>
 									<li class="fragment">Investigate the viability of profiling the composer of the classical works</li>
 							</ul>
-						</ul>
-
 						<aside class="notes">
 						</aside>
 					</section>
 				</section>
 
 				<section>
-					<h3>Code, report and presentation</h3>
+					<h1>Thanks</h1>
+					<p><i>Code, report and presentation</i></p>
 					<p><a href="https://github.com/Lesbinary/tfm/">github.com/Lesbinary/TFM/</a></p>
 				</section>
 
