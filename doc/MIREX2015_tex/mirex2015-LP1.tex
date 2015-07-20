@@ -72,7 +72,7 @@ The main work has been done in these following high level features based on the 
 From this keys vector, I created a script in Python that obtains the key of the sample using a weighted sum of the number of perfect cadences found at the key strength using 1 chroma and the values of key strength plugin using 10 chroma. In the mathematical notation, keys are sorted by 12 Major tones and then 12 minor tones, the ponderation in the implementation is 12 after some tests and the w is the 1 and 10 chroma window through the algorithm iterates. This obtained key is used as a feature.
 
 \begin{figure}
-\[ argmax_{k \in Keys} \sum_{w_{1}=1}^{n_{win}} w_k \sum_{w_{10}=2}^{n_{win}} w_k * ((1-w)_{(k+7)\%12})*pond \]
+\[ argmax_{k \in Keys} \sum_{w_{10}=1}^{n_{win}} w_k \sum_{w_{1}=2}^{n_{win}} w_k * ((1-w)_{(k+7)\%12})*pond \]
 \caption{Formula to obtain a ponderated key using perfect cadences and key strength} \label{fig:keyFormula}
 \end{figure}
 
